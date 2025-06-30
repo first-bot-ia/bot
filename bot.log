@@ -1,0 +1,287 @@
+2025-06-30 18:09:37,494 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.42.11:5000
+2025-06-30 18:09:37,494 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 18:09:37,495 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:09:38,347 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:09:38,352 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:10:52,478 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_sistema.py', reloading
+2025-06-30 18:10:52,563 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:10:53,558 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:10:53,561 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:11:48,130 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\persistence\\sqlite_client_repository.py', reloading
+2025-06-30 18:11:48,204 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:11:49,028 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:11:49,030 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:11:59,214 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_sistema.py', reloading
+2025-06-30 18:11:59,367 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:12:00,352 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:12:00,355 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:14:47,316 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\persistence\\postgresql_client_repository.py', reloading
+2025-06-30 18:14:47,383 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:14:49,030 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:14:49,034 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:14:50,397 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\persistence\\postgresql_client_repository.py', reloading
+2025-06-30 18:14:50,440 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:14:51,359 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:14:51,363 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:23:29,353 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_sistema.py', reloading
+2025-06-30 18:23:29,400 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:23:30,214 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:23:30,216 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:24:20,059 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_connection.py', reloading
+2025-06-30 18:24:20,100 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:24:20,879 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:24:20,883 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:24:27,396 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_connection.py', reloading
+2025-06-30 18:24:27,437 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:24:28,127 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:24:28,129 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:24:34,654 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_connection.py', reloading
+2025-06-30 18:24:34,694 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:24:35,519 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:24:35,523 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:25:07,806 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_direct_connection.py', reloading
+2025-06-30 18:25:07,848 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:25:08,667 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:25:08,669 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:27:42,850 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\test_direct_connection.py', reloading
+2025-06-30 18:27:42,909 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:27:43,716 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:27:43,719 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:28:07,534 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.42.11:5000
+2025-06-30 18:28:07,534 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 18:28:07,535 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:28:08,438 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:28:08,441 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:29:42,089 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\install_ngrok.py', reloading
+2025-06-30 18:29:42,098 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\install_ngrok.py', reloading
+2025-06-30 18:29:42,142 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:29:42,150 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:29:43,037 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:29:43,039 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:29:43,057 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:29:43,062 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:33:53,912 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\setup_ngrok.py', reloading
+2025-06-30 18:33:53,950 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:33:53,962 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\setup_ngrok.py', reloading
+2025-06-30 18:33:54,003 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:33:54,749 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:33:54,752 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:33:54,802 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:33:54,805 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:35:50,742 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.42.11:5000
+2025-06-30 18:35:50,742 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 18:35:50,743 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:35:51,738 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:35:51,740 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:37:20,890 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:37:20,891 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:37:20,891 - twilio.http_client - INFO - Headers:
+2025-06-30 18:37:20,891 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:37:20,892 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:37:20,892 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:37:20,892 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:37:20,892 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:37:21,624 - twilio.http_client - INFO - Response Status Code: 401
+2025-06-30 18:37:21,625 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:37:23 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQa125ebb1420c8b7954f932beba98b159', 'Twilio-Request-Duration': '0.011', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 281ab6dcad96e83fb0660b5fd39020e8.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'cD7n_7AGUlMxdEL1nSGCuCpUZ85s1-Kj8CMQNytZOIRbuQ-e3uuojg==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-06-30 18:37:21,667 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:37:21] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:38:53,726 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:53] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-06-30 18:38:54,021 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:54] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-06-30 18:38:54,082 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:54] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-06-30 18:38:54,119 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:54] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=EGDJ55MBEAuc9TvP3Pz9 HTTP/1.1" 200 -
+2025-06-30 18:38:54,531 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:54] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-06-30 18:38:55,874 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:55] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-06-30 18:38:56,197 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:56] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-06-30 18:38:56,198 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:56] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-06-30 18:38:56,452 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:56] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=EGDJ55MBEAuc9TvP3Pz9 HTTP/1.1[0m" 304 -
+2025-06-30 18:38:56,513 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:56] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-06-30 18:38:59,108 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-06-30 18:38:59,430 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:59] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-06-30 18:38:59,430 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:59] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-06-30 18:38:59,680 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:59] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=EGDJ55MBEAuc9TvP3Pz9 HTTP/1.1[0m" 304 -
+2025-06-30 18:38:59,746 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:38:59] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-06-30 18:39:22,315 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:39:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-06-30 18:39:22,331 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:39:22] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-06-30 18:39:22,332 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:39:22] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-06-30 18:39:22,387 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:39:22] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=EGDJ55MBEAuc9TvP3Pz9 HTTP/1.1" 200 -
+2025-06-30 18:39:22,574 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:39:22] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-06-30 18:40:12,367 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\web\\api_controller.py', reloading
+2025-06-30 18:40:12,420 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:40:13,379 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:40:13,383 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:40:41,288 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.42.11:5000
+2025-06-30 18:40:41,288 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 18:40:41,289 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:40:42,200 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:40:42,203 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:41:30,379 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.42.11:5000
+2025-06-30 18:41:30,380 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 18:41:30,381 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:41:31,202 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:41:31,205 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:41:51,264 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:41:51,264 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:41:51,264 - twilio.http_client - INFO - Headers:
+2025-06-30 18:41:51,264 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:41:51,264 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:41:51,265 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:41:51,265 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:41:51,265 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:41:51,970 - twilio.http_client - INFO - Response Status Code: 200
+2025-06-30 18:41:51,970 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:41:53 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ097f9b377f1cc94bde96b348980b83ad', 'Twilio-Request-Duration': '0.032', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 3fc3bd13aa87a17977461ca83c01c070.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'NM1bfNOvCluqd14QJtm1DeG7N7ZPjfZyKPtBpamcfJ4u3mUpJk3avQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
+2025-06-30 18:41:52,004 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:41:52] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:42:02,753 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:42:02,753 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:42:02,754 - twilio.http_client - INFO - Headers:
+2025-06-30 18:42:02,754 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:42:02,754 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:42:02,754 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:42:02,754 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:42:02,755 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:42:03,144 - twilio.http_client - INFO - Response Status Code: 200
+2025-06-30 18:42:03,145 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:42:04 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQf0347a586cc3f5be58876aeaa55a7de4', 'Twilio-Request-Duration': '0.024', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 3fc3bd13aa87a17977461ca83c01c070.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'QeSlMFOm-XChnEOmQVyOJhKyfx_tNA_27S3ohfp1kXVlpQk_02BYJw==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
+2025-06-30 18:42:03,179 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:03] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:42:45,321 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:45] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-06-30 18:42:45,379 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:45] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-06-30 18:42:45,381 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:45] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-06-30 18:42:45,392 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:45] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=ZkY5AKO2o72btzozyU0P HTTP/1.1" 200 -
+2025-06-30 18:42:45,425 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:45] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-06-30 18:42:46,677 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:46] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-06-30 18:42:46,687 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:46] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-06-30 18:42:46,688 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:46] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-06-30 18:42:46,701 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:46] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=ZkY5AKO2o72btzozyU0P HTTP/1.1[0m" 304 -
+2025-06-30 18:42:46,731 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:42:46] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-06-30 18:44:25,334 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\web\\api_controller.py', reloading
+2025-06-30 18:44:25,378 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:44:26,066 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:44:26,068 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:44:36,775 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\web\\api_controller.py', reloading
+2025-06-30 18:44:36,818 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:44:37,517 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:44:37,519 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:45:05,927 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:45:05] "GET / HTTP/1.1" 200 -
+2025-06-30 18:45:27,470 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:45:27] "[31m[1mGET /api/campaigns HTTP/1.1[0m" 405 -
+2025-06-30 18:47:29,118 - werkzeug - INFO -  * Detected change in 'C:\\Users\\ALEXANDER.CASTILLO\\OneDrive - ALESE SAC\\Escritorio\\KIWIPAY\\alesse-connect\\bot\\infrastructure\\web\\api_controller.py', reloading
+2025-06-30 18:47:29,161 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 18:47:29,877 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 18:47:29,880 - werkzeug - INFO -  * Debugger PIN: 103-885-528
+2025-06-30 18:48:19,459 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:19] "GET / HTTP/1.1" 200 -
+2025-06-30 18:48:19,478 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:19] "GET /api/templates HTTP/1.1" 200 -
+2025-06-30 18:48:19,522 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:19] "GET /api/clients HTTP/1.1" 200 -
+2025-06-30 18:48:19,725 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:19,725 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:48:19,725 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:19,725 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:19,726 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:19,726 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:19,726 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:19,726 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:20,361 - twilio.http_client - INFO - Response Status Code: 200
+2025-06-30 18:48:20,362 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:21 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQc44b7de4ddaa166c7fbc12a04dd5c715', 'Twilio-Request-Duration': '0.032', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'Euw9-PwgD_fA1uO-GoF-YiuYyc2q_ccokrdO9zvo9cvR0EaCnr7iqA==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
+2025-06-30 18:48:20,403 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:20] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:48:28,042 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:28,043 - twilio.http_client - INFO - POST Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e/Messages.json
+2025-06-30 18:48:28,043 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:28,043 - twilio.http_client - INFO - Content-Type : application/x-www-form-urlencoded
+2025-06-30 18:48:28,043 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:28,044 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:28,044 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:28,044 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:28,044 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:28,413 - twilio.http_client - INFO - Response Status Code: 201
+2025-06-30 18:48:28,413 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '953', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:29 GMT', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQab284b76d40499cc5274ad1a157a261e', 'Twilio-Request-Duration': '0.113', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': '6UtukBiL5G0W6GM6A7si5vrfEwb6FPXet7APkYT1xCVRpgFtUUY9Kg==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-06-30 18:48:31,416 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:31,416 - twilio.http_client - INFO - POST Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e/Messages.json
+2025-06-30 18:48:31,417 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:31,417 - twilio.http_client - INFO - Content-Type : application/x-www-form-urlencoded
+2025-06-30 18:48:31,417 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:31,418 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:31,418 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:31,419 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:31,419 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:31,875 - twilio.http_client - INFO - Response Status Code: 201
+2025-06-30 18:48:31,875 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '940', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:33 GMT', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQede4c1ddfdab5763b235f234f0a7c40d', 'Twilio-Request-Duration': '0.093', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'jk_HkbQNbpiqwgtLKa1pqaCyBwQ4By4TQ9OLzc_MNIBpqv-Cy55Miw==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-06-30 18:48:34,877 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:34,877 - twilio.http_client - INFO - POST Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e/Messages.json
+2025-06-30 18:48:34,878 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:34,878 - twilio.http_client - INFO - Content-Type : application/x-www-form-urlencoded
+2025-06-30 18:48:34,879 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:34,879 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:34,879 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:34,880 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:34,880 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:35,387 - twilio.http_client - INFO - Response Status Code: 201
+2025-06-30 18:48:35,388 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '948', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:36 GMT', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ77aaef89d168de1efd17578373a37990', 'Twilio-Request-Duration': '0.104', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'q3bdD8JbZBnASGp_KJT1TO2QZDvt0oz-foIupavnOTErxdU6L7Pvdg==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-06-30 18:48:38,389 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:38,390 - twilio.http_client - INFO - POST Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e/Messages.json
+2025-06-30 18:48:38,390 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:38,391 - twilio.http_client - INFO - Content-Type : application/x-www-form-urlencoded
+2025-06-30 18:48:38,391 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:38,391 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:38,392 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:38,392 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:38,392 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:38,849 - twilio.http_client - INFO - Response Status Code: 201
+2025-06-30 18:48:38,850 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '958', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:40 GMT', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ69dd56c61d28c6992983f86bfb696c19', 'Twilio-Request-Duration': '0.100', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'Mfhq7dZiVETcvzBV7TG4UmgceCf2AX3FUyOtysv1BULQ4K1eviSQBw==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-06-30 18:48:41,851 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:41,852 - twilio.http_client - INFO - POST Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e/Messages.json
+2025-06-30 18:48:41,852 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:41,852 - twilio.http_client - INFO - Content-Type : application/x-www-form-urlencoded
+2025-06-30 18:48:41,852 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:41,853 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:41,853 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:41,853 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:41,854 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:42,386 - twilio.http_client - INFO - Response Status Code: 201
+2025-06-30 18:48:42,386 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '948', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:43 GMT', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQf2a702a8e8470a85dd8aa85933515eb3', 'Twilio-Request-Duration': '0.088', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': '-ZdZ7r7k1s5KyS-hZ1mAGu3Pv6wn6c0V4BmKO4aSBfjtY4FpJBKOlQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-06-30 18:48:45,685 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:45] "POST /api/campaigns HTTP/1.1" 200 -
+2025-06-30 18:48:45,691 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:45,692 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:48:45,692 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:45,692 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:45,692 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:45,693 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:45,693 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:45,693 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:45,732 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:45] "GET /api/clients HTTP/1.1" 200 -
+2025-06-30 18:48:45,882 - twilio.http_client - INFO - Response Status Code: 200
+2025-06-30 18:48:45,883 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:47 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ7e5f248ad3a9954877c77e6c23c079f6', 'Twilio-Request-Duration': '0.021', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'VcfyJGkBdZAbRwXhONMZfc6zf8Oz41LkTZxFNJGCBv_S5vIg0lpBGA==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
+2025-06-30 18:48:46,023 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:46] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:48:49,488 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:48:49,489 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:48:49,489 - twilio.http_client - INFO - Headers:
+2025-06-30 18:48:49,490 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:48:49,490 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:48:49,490 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:48:49,490 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:48:49,491 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:48:49,522 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:49] "GET /api/clients HTTP/1.1" 200 -
+2025-06-30 18:48:49,869 - twilio.http_client - INFO - Response Status Code: 200
+2025-06-30 18:48:49,870 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:48:51 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ9efe16d660347942f4b010e132086dd4', 'Twilio-Request-Duration': '0.017', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'BigysNkEJXXVN-NDNJtvxSF3Q4hKuIkpVZ8r92oWMNX1DI-6UL_IQQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
+2025-06-30 18:48:50,013 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:48:50] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:49:22,908 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-06-30 18:49:22,909 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-06-30 18:49:22,909 - twilio.http_client - INFO - Headers:
+2025-06-30 18:49:22,911 - twilio.http_client - INFO - Accept : application/json
+2025-06-30 18:49:22,912 - twilio.http_client - INFO - User-Agent : twilio-python/9.6.3 (Windows AMD64) Python/3.13.4
+2025-06-30 18:49:22,913 - twilio.http_client - INFO - X-Twilio-Client : python-9.6.3
+2025-06-30 18:49:22,913 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-06-30 18:49:22,914 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-06-30 18:49:23,626 - twilio.http_client - INFO - Response Status Code: 200
+2025-06-30 18:49:23,626 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:49:24 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ305446a12fa9c99941c9fac1030827c7', 'Twilio-Request-Duration': '0.023', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'XNNx6rMmfS0AiRsNteYYT4lg40bH_4kLK_z_VJjUtnBK379b2gf1KA==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
+2025-06-30 18:49:23,673 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:49:23] "GET /api/status HTTP/1.1" 200 -
+2025-06-30 18:49:26,313 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:49:26] "GET /api/clients HTTP/1.1" 200 -

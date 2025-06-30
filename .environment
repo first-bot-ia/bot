@@ -3,7 +3,7 @@
 
 # Credenciales principales de Twilio
 TWILIO_ACCOUNT_SID=ACa04b8f9a85c8c2668b35343b45ed080e
-TWILIO_AUTH_TOKEN=921ceec8e8869000aebe9bec97f4b106
+TWILIO_AUTH_TOKEN=bcfb91d9e0136991532027f7a215cf35
 
 # Número de WhatsApp del Sandbox de Twilio 
 # Formato: whatsapp:+14155238886 (número fijo del sandbox)
@@ -18,7 +18,7 @@ FLASK_PORT=5000
 FLASK_DEBUG=True
 
 # Base de datos PostgreSQL
-DATABASE_URL=postgresql://alesse_user:alesse_secure_pass_2024@localhost:5432/bot
+DATABASE_URL=postgresql://postgres:root@localhost:5432/bot
 
 # 📝 INSTRUCCIONES:
 # 1. Ve a WhatsApp Sandbox: https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn

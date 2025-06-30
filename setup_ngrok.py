@@ -1,111 +1,102 @@
 #!/usr/bin/env python3
 """
-🚀 Configurador simple de ngrok
-Instrucciones para instalar y configurar ngrok
+Configuración de ngrok para el webhook de Twilio
 """
-
-import os
 import subprocess
-import webbrowser
+import time
+import requests
+import json
 
-def check_ngrok():
-    """Verifica si ngrok está instalado"""
-    # Verificar si está en el directorio actual
-    if os.path.exists("ngrok.exe"):
-        print("✅ ngrok.exe encontrado en el directorio actual")
-        return True
-    
-    # Verificar si está en PATH
+def get_ngrok_url():
+    """Obtiene la URL pública de ngrok"""
     try:
-        result = subprocess.run(["ngrok", "--version"], 
-                              capture_output=True, text=True, timeout=5)
-        if result.returncode == 0:
-            print("✅ ngrok está disponible en PATH")
-            print(f"   Versión: {result.stdout.strip()}")
-            return True
-    except:
-        pass
-    
-    return False
-
-def show_manual_instructions():
-    """Muestra instrucciones manuales para instalar ngrok"""
-    print("\n📋 INSTALACIÓN MANUAL DE NGROK:")
-    print("=" * 50)
-    print("1. Ve a: https://ngrok.com/download")
-    print("2. Descarga la versión para Windows")
-    print("3. Extrae ngrok.exe en esta carpeta:")
-    print(f"   {os.getcwd()}")
-    print("4. Vuelve a ejecutar este script")
-    
-    print("\n🔗 ¿Quieres abrir la página de descarga? (s/n): ", end="")
-    response = input().strip().lower()
-    if response in ['s', 'si', 'y', 'yes']:
-        webbrowser.open("https://ngrok.com/download")
-        print("✅ Página de descarga abierta en el navegador")
-
-def start_ngrok():
-    """Inicia ngrok en puerto 5000"""
-    ngrok_cmd = None
-    
-    if os.path.exists("ngrok.exe"):
-        ngrok_cmd = "./ngrok.exe"
-    else:
-        ngrok_cmd = "ngrok"
-    
-    print(f"\n🚀 Iniciando ngrok en puerto 5000...")
-    print("⚠️ IMPORTANTE: Deja esta ventana abierta")
-    print("💡 Para detener, presiona Ctrl+C")
-    print("🌐 La URL se mostrará en unos segundos...")
-    
-    try:
-        subprocess.run([ngrok_cmd, "http", "5000"])
-    except KeyboardInterrupt:
-        print("\n👋 ngrok detenido")
+        print("🔍 Obteniendo URL pública de ngrok...")
+        
+        # Esperar un poco para que ngrok se inicie
+        time.sleep(2)
+        
+        # Consultar API local de ngrok
+        response = requests.get('http://localhost:4040/api/tunnels')
+        
+        if response.status_code == 200:
+            tunnels = response.json()
+            
+            for tunnel in tunnels.get('tunnels', []):
+                if tunnel.get('proto') == 'https':
+                    public_url = tunnel.get('public_url')
+                    print(f"✅ URL pública encontrada: {public_url}")
+                    return public_url
+            
+            print("❌ No se encontró túnel HTTPS")
+            return None
+        else:
+            print(f"❌ Error consultando ngrok API: {response.status_code}")
+            return None
+            
     except Exception as e:
-        print(f"\n❌ Error ejecutando ngrok: {e}")
-        print("💡 Asegúrate de que ngrok.exe esté en esta carpeta")
+        print(f"❌ Error obteniendo URL: {e}")
+        return None
+
+def update_webhook_url(ngrok_url):
+    """Actualiza el webhook URL en las variables de entorno"""
+    try:
+        webhook_url = f"{ngrok_url}/whatsapp/webhook"
+        
+        print(f"🔧 URL del webhook: {webhook_url}")
+        print("\n📋 CONFIGURACIÓN EN TWILIO CONSOLE:")
+        print("=" * 50)
+        print("1. Ve a: https://console.twilio.com/us1/develop/sms/settings/whatsapp-sandbox")
+        print("2. En 'When a message comes in':")
+        print(f"   URL: {webhook_url}")
+        print("   HTTP: POST")
+        print("3. Guarda los cambios")
+        print("=" * 50)
+        
+        # Actualizar archivo .environment
+        with open('.environment', 'r') as f:
+            content = f.read()
+        
+        # Reemplazar webhook URL
+        import re
+        new_content = re.sub(
+            r'WEBHOOK_URL=.*',
+            f'WEBHOOK_URL={webhook_url}',
+            content
+        )
+        
+        with open('.environment', 'w') as f:
+            f.write(new_content)
+        
+        print(f"✅ Archivo .environment actualizado con webhook URL")
+        
+    except Exception as e:
+        print(f"❌ Error actualizando webhook: {e}")
 
 def main():
     """Función principal"""
-    print("🚀 Configurador de ngrok para Twilio WhatsApp")
-    print("=" * 50)
+    print("🚀 Configurador de ngrok para Twilio")
+    print("=" * 40)
     
-    if check_ngrok():
-        print("\n🎉 ¡ngrok está listo!")
-        print("\n¿Qué quieres hacer?")
-        print("1. Iniciar ngrok ahora")
-        print("2. Solo mostrar instrucciones")
-        print("3. Salir")
-        
-        choice = input("\nElige una opción (1-3): ").strip()
-        
-        if choice == "1":
-            start_ngrok()
-        elif choice == "2":
-            show_ngrok_instructions()
-        else:
-            print("👋 ¡Hasta luego!")
+    print("📋 INSTRUCCIONES:")
+    print("1. Abre otra terminal")
+    print("2. Ejecuta: ngrok http 5000")
+    print("3. Deja ngrok corriendo")
+    print("4. Vuelve aquí y presiona ENTER")
+    print("=" * 40)
+    
+    input("Presiona ENTER cuando ngrok esté ejecutándose...")
+    
+    # Obtener URL de ngrok
+    ngrok_url = get_ngrok_url()
+    
+    if ngrok_url:
+        update_webhook_url(ngrok_url)
+        print("\n🎉 ¡Configuración completada!")
+        print(f"🌐 Tu aplicación está disponible en: {ngrok_url}")
+        print("📱 Configura el webhook en Twilio Console con las instrucciones mostradas")
     else:
-        print("\n❌ ngrok no encontrado")
-        show_manual_instructions()
-
-def show_ngrok_instructions():
-    """Muestra instrucciones de uso de ngrok"""
-    print("\n📋 INSTRUCCIONES DE USO:")
-    print("=" * 30)
-    print("1. Ejecuta el bot:")
-    print("   python run_spam_bot.py")
-    print("\n2. En OTRA terminal, ejecuta ngrok:")
-    print("   python setup_ngrok.py")
-    print("   (elige opción 1)")
-    print("\n3. Copia la URL que muestra ngrok (algo como:")
-    print("   https://abc123.ngrok.io")
-    print("\n4. Ve a Twilio Console:")
-    print("   https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn")
-    print("\n5. En 'When a message comes in', pega:")
-    print("   https://abc123.ngrok.io/whatsapp/webhook")
-    print("\n6. ¡Listo! Ya puedes enviar mensajes masivos")
+        print("\n❌ No se pudo obtener la URL de ngrok")
+        print("🔧 Verifica que ngrok esté ejecutándose con: ngrok http 5000")
 
 if __name__ == "__main__":
     main() 
