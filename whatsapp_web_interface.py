@@ -31,23 +31,36 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>🚀 WhatsApp Native Bot - Bot de Spam</h1>
+        <h1>🚀 WhatsApp Native Bot - Sistema de Campañas</h1>
         
         <!-- Estado de conexión -->
         <div id="connection-status" class="status info">
             🔄 Verificando conexión...
         </div>
         
-        <!-- Envío de mensajes -->
+                <!-- Envío de mensajes individuales -->
         <h3>📱 Enviar Mensaje de Prueba</h3>
         <div>
-                         <input type="text" id="phone" placeholder="51965181346" value="51965181346">
-                         <select id="template">
-                 <option value="hello_world">Hello World (sin parámetros)</option>
-             </select>
-             <input type="text" id="parameter" placeholder="Parámetro (solo si aplica)" value=""  style="display:none;">
-            <button onclick="sendMessage()">✉️ Enviar</button>
+            <input type="text" id="phone" placeholder="51965181346" value="51965181346">
+            <select id="template">
+                <option value="hello_world">Hello World (sin parámetros)</option>
+            </select>
+            <input type="text" id="parameter" placeholder="Parámetro (solo si aplica)" value=""  style="display:none;">
+            <button onclick="sendMessage()">✉️ Enviar Individual</button>
         </div>
+        
+        <!-- Campañas Masivas -->
+        <h3>🚀 Campañas Masivas</h3>
+        <div>
+            <select id="campaignType">
+                <option value="">Selecciona tipo de campaña...</option>
+            </select>
+            <button onclick="sendCampaign()" id="sendCampaignBtn" disabled>📢 Enviar Campaña Masiva</button>
+        </div>
+        
+        <!-- Historial de Campañas -->
+        <h3>📊 Historial de Campañas</h3>
+        <div id="campaignHistory" class="log">Cargando historial...</div>
         
         <!-- Resultados -->
         <div id="result" class="status" style="display: none;"></div>
@@ -113,6 +126,90 @@ HTML_TEMPLATE = """
             });
         }
         
+        function sendCampaign() {
+            const campaignType = document.getElementById('campaignType').value;
+            if (!campaignType) {
+                addLog('❌ Selecciona un tipo de campaña');
+                return;
+            }
+            
+            addLog('🚀 Iniciando campaña masiva: ' + campaignType);
+            document.getElementById('sendCampaignBtn').disabled = true;
+            document.getElementById('sendCampaignBtn').innerText = '📡 Enviando...';
+            
+            fetch('/api/send-campaign', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({campaign_type: campaignType})
+            })
+            .then(response => response.json())
+            .then(data => {
+                const result = document.getElementById('result');
+                result.style.display = 'block';
+                if (data.success) {
+                    const res = data.resultados;
+                    result.className = 'status success';
+                    result.innerHTML = `✅ Campaña completada: ${res.enviados} enviados, ${res.fallidos} fallidos`;
+                    addLog(`🏁 Campaña finalizada: ${res.enviados}/${res.total_clientes} exitosos`);
+                    loadCampaignHistory(); // Actualizar historial
+                } else {
+                    result.className = 'status error';
+                    result.innerHTML = '❌ Error: ' + data.error;
+                    addLog('❌ Error en campaña masiva');
+                }
+                document.getElementById('sendCampaignBtn').disabled = false;
+                document.getElementById('sendCampaignBtn').innerText = '📢 Enviar Campaña Masiva';
+            });
+        }
+        
+        function loadCampaigns() {
+            fetch('/api/campaigns')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('campaignType');
+                    select.innerHTML = '<option value="">Selecciona tipo de campaña...</option>';
+                    data.forEach(campaign => {
+                        const option = document.createElement('option');
+                        option.value = campaign.id;
+                        option.text = campaign.nombre + ' - ' + campaign.descripcion;
+                        select.appendChild(option);
+                    });
+                });
+            
+            // Habilitar botón cuando se seleccione campaña
+            document.getElementById('campaignType').addEventListener('change', function() {
+                document.getElementById('sendCampaignBtn').disabled = !this.value;
+            });
+        }
+        
+        function loadCampaignHistory() {
+            fetch('/api/campaign-history')
+                .then(response => response.json())
+                .then(data => {
+                    const history = document.getElementById('campaignHistory');
+                    if (data.length === 0) {
+                        history.innerHTML = 'No hay campañas ejecutadas aún.';
+                        return;
+                    }
+                    
+                    let html = '<table style="width:100%; border-collapse: collapse;">';
+                    html += '<tr style="background: #f0f0f0;"><th>Campaña</th><th>Fecha</th><th>Enviados</th><th>Exitosos</th><th>Estado</th></tr>';
+                    
+                    data.forEach(campaign => {
+                        const fecha = new Date(campaign.fecha_ejecucion).toLocaleString();
+                        html += `<tr>
+                            <td style="padding: 5px; border: 1px solid #ddd;">${campaign.nombre}</td>
+                            <td style="padding: 5px; border: 1px solid #ddd;">${fecha}</td>
+                            <td style="padding: 5px; border: 1px solid #ddd;">${campaign.total_enviados}</td>
+                            <td style="padding: 5px; border: 1px solid #ddd;">${campaign.total_exitosos}</td>
+                            <td style="padding: 5px; border: 1px solid #ddd;">${campaign.estado}</td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                    history.innerHTML = html;
+                });
+        }
+        
         function loadClients() {
             fetch('/api/clients')
                 .then(response => response.json())
@@ -127,6 +224,8 @@ HTML_TEMPLATE = """
         // Inicializar
         checkConnection();
         loadClients();
+        loadCampaigns();
+        loadCampaignHistory();
         setInterval(checkConnection, 30000); // Verificar cada 30s
     </script>
 </body>
@@ -156,6 +255,25 @@ def send_message():
 @app.route('/api/clients')
 def get_clients():
     return jsonify(whatsapp_native_service.obtener_clientes_activos())
+
+@app.route('/api/campaigns')
+def get_campaigns():
+    return jsonify(whatsapp_native_service.obtener_campañas_disponibles())
+
+@app.route('/api/send-campaign', methods=['POST'])
+def send_campaign():
+    data = request.json or {}
+    campaign_type = data.get('campaign_type')
+    
+    if not campaign_type:
+        return jsonify({'success': False, 'error': 'Tipo de campaña requerido'})
+    
+    result = whatsapp_native_service.enviar_campaña_masiva(campaign_type)
+    return jsonify(result)
+
+@app.route('/api/campaign-history')
+def get_campaign_history():
+    return jsonify(whatsapp_native_service.obtener_historial_campañas())
 
 if __name__ == '__main__':
     print("🌐 Iniciando WhatsApp Native Web Interface...")

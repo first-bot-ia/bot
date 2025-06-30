@@ -1,274 +1,212 @@
 #!/usr/bin/env python3
 """
-🤖 Script Principal - Bot de Spam Masivo
-Menú interactivo para gestionar el bot de spam
+🚀 Script Principal - Bot de Spam Masivo con Twilio Sandbox
+Ejecuta el servidor web completo para gestionar envíos masivos
 """
 
 import os
 import sys
-from spam_bot_service import spam_service
+import subprocess
+import threading
+import time
+from pathlib import Path
 
-def mostrar_menu():
-    """Mostrar menú principal"""
-    print("\n" + "="*50)
-    print("🤖 BOT DE SPAM MASIVO - ALESSE CONNECT")
-    print("="*50)
-    print("1. 📊 Ver estadísticas")
-    print("2. 👥 Gestionar clientes")
-    print("3. 📝 Gestionar templates")
-    print("4. 🚀 Enviar spam masivo")
-    print("5. 📈 Ver historial")
-    print("6. 🔧 Test de conexión")
-    print("0. ❌ Salir")
-    print("="*50)
-
-def ver_estadisticas():
-    """Mostrar estadísticas del sistema"""
-    print("\n📊 ESTADÍSTICAS DEL SISTEMA")
-    print("-" * 30)
-    
-    clientes = spam_service.obtener_clientes_activos()
-    templates = spam_service.obtener_templates_disponibles()
-    historial = spam_service.obtener_historial_envios()
-    stats = spam_service.obtener_estadisticas()
-    
-    print(f"👥 Total clientes activos: {len(clientes)}")
-    print(f"📝 Templates disponibles: {len(templates)}")
-    print(f"📨 Total envíos registrados: {len(historial)}")
-    
-    if stats.get('en_progreso'):
-        print(f"🔄 Envío en progreso: {stats.get('template', 'N/A')}")
-        print(f"📊 Progreso: {stats.get('enviados', 0) + stats.get('fallidos', 0)}/{stats.get('total', 0)}")
-        print(f"✅ Exitosos: {stats.get('enviados', 0)}")
-        print(f"❌ Fallidos: {stats.get('fallidos', 0)}")
-    else:
-        print("💤 No hay envíos en progreso")
-
-def gestionar_clientes():
-    """Gestionar clientes"""
-    while True:
-        print("\n👥 GESTIÓN DE CLIENTES")
-        print("1. Ver lista de clientes")
-        print("2. Agregar nuevo cliente")
-        print("0. Volver al menú principal")
-        
-        opcion = input("\nSelecciona una opción: ").strip()
-        
-        if opcion == "1":
-            clientes = spam_service.obtener_clientes_activos()
-            print(f"\n📋 LISTA DE CLIENTES ({len(clientes)} activos)")
-            print("-" * 70)
-            for i, cliente in enumerate(clientes, 1):
-                print(f"{i:2d}. {cliente['nombre']:20} | {cliente['telefono']:15} | Enviados: {cliente['total_enviados']}")
-        
-        elif opcion == "2":
-            print("\n➕ AGREGAR NUEVO CLIENTE")
-            nombre = input("Nombre completo: ").strip()
-            telefono = input("Teléfono (+51999123456): ").strip()
-            email_input = input("Email (opcional): ").strip()
-            
-            if nombre and telefono:
-                if email_input:
-                    success = spam_service.agregar_cliente(nombre, telefono, email_input)
-                else:
-                    success = spam_service.agregar_cliente(nombre, telefono)
-                if success:
-                    print("✅ Cliente agregado exitosamente")
-                else:
-                    print("❌ Error agregando cliente (posible duplicado)")
-            else:
-                print("❌ Nombre y teléfono son obligatorios")
-        
-        elif opcion == "0":
-            break
-
-def gestionar_templates():
-    """Gestionar templates"""
-    while True:
-        print("\n📝 GESTIÓN DE TEMPLATES")
-        print("1. Ver templates disponibles")
-        print("2. Crear nuevo template")
-        print("0. Volver al menú principal")
-        
-        opcion = input("\nSelecciona una opción: ").strip()
-        
-        if opcion == "1":
-            templates = spam_service.obtener_templates_disponibles()
-            print(f"\n📋 TEMPLATES DISPONIBLES ({len(templates)})")
-            print("-" * 50)
-            for i, template in enumerate(templates, 1):
-                print(f"{i}. {template['nombre']}")
-                print(f"   📄 {template['contenido'][:100]}...")
-                print()
-        
-        elif opcion == "2":
-            print("\n➕ CREAR NUEVO TEMPLATE")
-            nombre = input("Nombre del template: ").strip()
-            print("Contenido del mensaje (usa {nombre} para personalizar):")
-            contenido = input("> ").strip()
-            
-            if nombre and contenido:
-                success = spam_service.crear_template(nombre, contenido)
-                if success:
-                    print("✅ Template creado exitosamente")
-                else:
-                    print("❌ Error creando template")
-            else:
-                print("❌ Nombre y contenido son obligatorios")
-        
-        elif opcion == "0":
-            break
-
-def enviar_spam_masivo():
-    """Iniciar envío masivo"""
-    print("\n🚀 ENVÍO MASIVO")
-    
-    # Verificar si ya hay un envío en progreso
-    stats = spam_service.obtener_estadisticas()
-    if stats.get('en_progreso'):
-        print("⚠️ Ya hay un envío en progreso")
-        print(f"Template: {stats.get('template')}")
-        print(f"Progreso: {stats.get('enviados', 0) + stats.get('fallidos', 0)}/{stats.get('total', 0)}")
-        
-        cancelar = input("\n¿Deseas cancelar el envío actual? (s/N): ").strip().lower()
-        if cancelar == 's':
-            if spam_service.cancelar_envio():
-                print("✅ Envío cancelado")
-            else:
-                print("❌ No se pudo cancelar el envío")
-        return
-    
-    # Mostrar templates disponibles
-    templates = spam_service.obtener_templates_disponibles()
-    if not templates:
-        print("❌ No hay templates disponibles. Crea uno primero.")
-        return
-    
-    print("\n📝 Templates disponibles:")
-    for i, template in enumerate(templates, 1):
-        print(f"{i}. {template['nombre']}")
-    
-    # Seleccionar template
+def check_dependencies():
+    """Verifica que todas las dependencias estén instaladas"""
     try:
-        opcion = int(input(f"\nSelecciona template (1-{len(templates)}): ")) - 1
-        if opcion < 0 or opcion >= len(templates):
-            print("❌ Opción inválida")
-            return
-        
-        template_seleccionado = templates[opcion]['nombre']
-    except ValueError:
-        print("❌ Por favor ingresa un número válido")
-        return
-    
-    # Configurar delays
+        import twilio
+        import flask
+        import flask_cors
+        import dotenv
+        print("✅ Todas las dependencias están instaladas")
+        return True
+    except ImportError as e:
+        print(f"❌ Dependencia faltante: {e}")
+        print("💡 Ejecuta: pip install -r requirements_spam.txt")
+        return False
+
+def check_environment():
+    """Verifica que las variables de entorno estén configuradas"""
     try:
-        delay_min = int(input("Delay mínimo entre envíos (segundos, default 5): ") or "5")
-        delay_max = int(input("Delay máximo entre envíos (segundos, default 15): ") or "15")
-    except ValueError:
-        delay_min, delay_max = 5, 15
-    
-    # Mostrar información del envío
-    clientes = spam_service.obtener_clientes_activos()
-    print(f"\n📊 RESUMEN DEL ENVÍO:")
-    print(f"📝 Template: {template_seleccionado}")
-    print(f"👥 Clientes objetivo: {len(clientes)}")
-    print(f"⏱️ Delay entre envíos: {delay_min}-{delay_max} segundos")
-    print(f"🕐 Tiempo estimado: {len(clientes) * ((delay_min + delay_max) / 2) / 60:.1f} minutos")
-    
-    # Confirmar envío
-    confirmar = input("\n¿Confirmas el envío masivo? (s/N): ").strip().lower()
-    if confirmar != 's':
-        print("❌ Envío cancelado")
-        return
-    
-    # Iniciar envío
-    result = spam_service.enviar_spam_masivo(template_seleccionado, delay_min, delay_max)
-    
-    if result['success']:
-        print(f"✅ {result['message']}")
-        print("\n🔄 El envío se está ejecutando en segundo plano.")
-        print("💡 Puedes ver el progreso en 'Ver estadísticas'")
-    else:
-        print(f"❌ Error: {result['message']}")
+        from dotenv import load_dotenv
+        load_dotenv('.environment')
+        
+        required_vars = [
+            'TWILIO_ACCOUNT_SID',
+            'TWILIO_AUTH_TOKEN',
+            'TWILIO_WHATSAPP_NUMBER'
+        ]
+        
+        missing_vars = []
+        for var in required_vars:
+            if not os.getenv(var) or os.getenv(var) == 'your_account_sid_here':
+                missing_vars.append(var)
+        
+        if missing_vars:
+            print("❌ Variables de entorno faltantes o mal configuradas:")
+            for var in missing_vars:
+                print(f"   - {var}")
+            print("\n📝 Instrucciones:")
+            print("1. Ve a https://console.twilio.com/")
+            print("2. Copia tu Account SID y Auth Token")
+            print("3. Edita el archivo .environment")
+            print("4. Ve a WhatsApp Sandbox: https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn")
+            return False
+        
+        print("✅ Variables de entorno configuradas correctamente")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error verificando entorno: {e}")
+        return False
 
-def ver_historial():
-    """Ver historial de envíos"""
-    print("\n📈 HISTORIAL DE ENVÍOS")
-    
-    historial = spam_service.obtener_historial_envios(limite=20)
-    
-    if not historial:
-        print("📭 No hay envíos registrados")
-        return
-    
-    print(f"\n📋 Últimos {len(historial)} envíos:")
-    print("-" * 80)
-    
-    for envio in historial:
-        estado_icon = "✅" if envio['estado'] == 'enviado' else "❌"
-        print(f"{estado_icon} {envio['cliente']:20} | {envio['template']:20} | {envio['fecha']}")
+def test_twilio_connection():
+    """Prueba la conexión con Twilio"""
+    try:
+        from spam_bot_service_pg import spam_service
+        result = spam_service.test_conexion()
+        
+        if result['success']:
+            print("✅ Conexión con Twilio exitosa")
+            print(f"   - Cuenta: {result.get('account_name', 'N/A')}")
+            print(f"   - Estado: {result.get('status', 'N/A')}")
+            return True
+        else:
+            print(f"❌ Error conectando con Twilio: {result['message']}")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Error probando conexión: {e}")
+        return False
 
-def test_conexion():
-    """Probar conexión con Twilio"""
-    print("\n🔧 TEST DE CONEXIÓN")
-    print("Probando conexión con Twilio...")
+def check_ngrok():
+    """Verifica si ngrok está disponible"""
+    if os.path.exists("ngrok.exe"):
+        print("✅ ngrok está instalado localmente")
+        return True
     
-    result = spam_service.test_conexion()
-    
-    if result['success']:
-        print("✅ CONEXIÓN EXITOSA")
-        print(f"📱 WhatsApp Number: {result['whatsapp_number']}")
-        print(f"🏢 Account: {result['account_name']}")
-        print(f"🆔 SID: {result['account_sid']}")
-    else:
-        print("❌ ERROR DE CONEXIÓN")
-        print(f"📋 Mensaje: {result['message']}")
-        print("\n💡 Verifica las credenciales en el archivo .environment")
+    # Buscar ngrok en PATH
+    try:
+        subprocess.run(["ngrok", "--version"], capture_output=True, check=True)
+        print("✅ ngrok está disponible en PATH")
+        return True
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        print("⚠️ ngrok no encontrado")
+        print("💡 Ejecuta: python install_ngrok.py")
+        return False
+
+def start_webhook_server():
+    """Inicia el servidor de webhooks"""
+    try:
+        from webhook_server import app
+        print("🌐 Iniciando servidor de webhooks en puerto 5000...")
+        app.run(
+            host='0.0.0.0',
+            port=5000,
+            debug=False,  # Sin debug para evitar restart automático
+            use_reloader=False
+        )
+    except Exception as e:
+        print(f"❌ Error iniciando servidor: {e}")
+
+def start_web_interface():
+    """Inicia la interfaz web"""
+    try:
+        from spam_bot_web import app
+        print("🎨 Iniciando interfaz web en puerto 5001...")
+        app.run(
+            host='0.0.0.0',
+            port=5001,
+            debug=False,
+            use_reloader=False
+        )
+    except Exception as e:
+        print(f"❌ Error iniciando interfaz web: {e}")
+
+def get_ngrok_url():
+    """Obtiene la URL de ngrok si está disponible"""
+    try:
+        import requests
+        response = requests.get("http://localhost:4040/api/tunnels", timeout=2)
+        data = response.json()
+        
+        for tunnel in data.get('tunnels', []):
+            if tunnel.get('config', {}).get('addr') == 'http://localhost:5000':
+                return tunnel['public_url']
+        return None
+    except:
+        return None
 
 def main():
     """Función principal"""
-    print("🤖 Inicializando Bot de Spam Masivo...")
+    print("🚀 Bot de Spam Masivo - Twilio Sandbox")
+    print("=" * 50)
     
-    # Verificar que el servicio está inicializado
-    try:
-        spam_service.test_conexion()
-        print("✅ Servicio inicializado correctamente")
-    except Exception as e:
-        print(f"❌ Error inicializando servicio: {e}")
-        print("💡 Verifica tu configuración en .environment")
+    # Verificar dependencias
+    if not check_dependencies():
         return
     
-    while True:
-        try:
-            mostrar_menu()
-            opcion = input("\nSelecciona una opción: ").strip()
-            
-            if opcion == "1":
-                ver_estadisticas()
-            elif opcion == "2":
-                gestionar_clientes()
-            elif opcion == "3":
-                gestionar_templates()
-            elif opcion == "4":
-                enviar_spam_masivo()
-            elif opcion == "5":
-                ver_historial()
-            elif opcion == "6":
-                test_conexion()
-            elif opcion == "0":
-                print("\n👋 ¡Hasta luego!")
-                break
-            else:
-                print("❌ Opción inválida")
-            
-            input("\nPresiona Enter para continuar...")
-            
-        except KeyboardInterrupt:
-            print("\n\n👋 ¡Hasta luego!")
-            break
-        except Exception as e:
-            print(f"\n❌ Error inesperado: {e}")
-            input("Presiona Enter para continuar...")
+    # Verificar configuración
+    if not check_environment():
+        return
+    
+    # Probar conexión con Twilio
+    if not test_twilio_connection():
+        return
+    
+    # Verificar ngrok
+    ngrok_available = check_ngrok()
+    
+    print("\n" + "=" * 50)
+    print("🎉 ¡Sistema listo para iniciar!")
+    print("=" * 50)
+    
+    # Mostrar URLs importantes
+    print("\n📍 URLs del sistema:")
+    print("   - Webhook: http://localhost:5000/whatsapp/webhook")
+    print("   - Interfaz web: http://localhost:5001")
+    print("   - Estado: http://localhost:5000/test")
+    
+    if ngrok_available:
+        print("\n📱 Para exponer al internet:")
+        print("   1. Ejecuta en otra terminal: ./ngrok.exe http 5000")
+        print("   2. Copia la URL de ngrok")
+        print("   3. Ve a Twilio Console > WhatsApp Sandbox")
+        print("   4. Pega la URL + '/whatsapp/webhook' en 'When a message comes in'")
+    
+    print("\n🎯 Instrucciones de uso:")
+    print("   1. Abre http://localhost:5001 en tu navegador")
+    print("   2. Ve a la pestaña 'Clientes' para agregar números")
+    print("   3. En 'Enviar Spam' selecciona un template")
+    print("   4. ¡Envía mensajes masivos!")
+    
+    print("\n⚠️ IMPORTANTE:")
+    print("   - Los números deben unirse al sandbox primero")
+    print("   - Envía 'join [tu-keyword]' al +1 415 523 8886")
+    print("   - Solo funciona con números que se unieron al sandbox")
+    
+    print("\n🚀 Iniciando servidores...")
+    
+    # Iniciar servidor de webhooks en un hilo separado
+    webhook_thread = threading.Thread(target=start_webhook_server, daemon=True)
+    webhook_thread.start()
+    
+    # Esperar un poco para que el servidor se inicie
+    time.sleep(2)
+    
+    # Mostrar URL de ngrok si está disponible
+    ngrok_url = get_ngrok_url()
+    if ngrok_url:
+        print(f"\n🌐 ngrok URL disponible: {ngrok_url}")
+        print(f"   Webhook URL para Twilio: {ngrok_url}/whatsapp/webhook")
+    
+    # Iniciar interfaz web (principal)
+    print("\n🎨 Iniciando interfaz web...")
+    try:
+        start_web_interface()
+    except KeyboardInterrupt:
+        print("\n\n👋 ¡Cerrando sistema!")
+        print("¡Gracias por usar el Bot de Spam Masivo!")
 
 if __name__ == "__main__":
     main() 

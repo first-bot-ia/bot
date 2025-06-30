@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-🚀 Servicio Bot de Spam Masivo - Twilio Sandbox
-Sistema para envío de templates masivos usando Twilio WhatsApp Sandbox
+🚀 Servicio Bot de Spam Masivo - PostgreSQL
+Sistema para envío de templates masivos usando PostgreSQL (sin "database locked")
 """
 
 import os
@@ -27,10 +27,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-class SpamBotService:
+class SpamBotServicePG:
     """
-    🤖 Servicio de Bot de Spam - Twilio Sandbox
-    Envío masivo usando templates predefinidos del sandbox
+    🤖 Servicio de Bot de Spam - PostgreSQL
+    Envío masivo usando templates predefinidos con PostgreSQL
     """
     
     def __init__(self):
@@ -38,8 +38,16 @@ class SpamBotService:
         self.twilio_client = self._initialize_twilio()
         self.whatsapp_number = os.getenv('TWILIO_WHATSAPP_NUMBER', 'whatsapp:+14155238886')
         
-        # Base de datos
-        self.db_path = 'clientes_spam.db'
+        # Configuración PostgreSQL
+        self.pg_config = {
+            'host': os.getenv('DB_HOST', 'localhost'),
+            'database': os.getenv('DB_NAME', 'bot'),
+            'user': os.getenv('DB_USER', 'postgres'),
+            'password': os.getenv('DB_PASSWORD', 'root'),
+            'port': int(os.getenv('DB_PORT', 5432))
+        }
+        
+        # Inicializar base de datos
         self._initialize_database()
         
         # Templates específicos para Alesse Connect - Seguros
@@ -93,7 +101,16 @@ class SpamBotService:
             'fin': None
         }
         
-        logger.info("🤖 SpamBotService inicializado con Twilio Sandbox")
+        logger.info("🤖 SpamBotService inicializado con PostgreSQL")
+    
+    def _get_connection(self):
+        """Obtener conexión a PostgreSQL con manejo de errores"""
+        try:
+            conn = psycopg2.connect(**self.pg_config)
+            return conn
+        except Exception as e:
+            logger.error(f"❌ Error conectando PostgreSQL: {e}")
+            return None
     
     def _initialize_twilio(self) -> Optional[Client]:
         """Inicializa cliente Twilio"""
@@ -113,21 +130,25 @@ class SpamBotService:
             return None
     
     def _initialize_database(self):
-        """Inicializa la base de datos SQLite"""
+        """Inicializa la base de datos PostgreSQL"""
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = self._get_connection()
+            if not conn:
+                logger.error("❌ No se pudo conectar a PostgreSQL")
+                return
+            
             cursor = conn.cursor()
             
             # Crear tabla de clientes
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS clientes (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nombre TEXT NOT NULL,
-                    telefono TEXT NOT NULL UNIQUE,
-                    email TEXT,
-                    activo INTEGER DEFAULT 1,
-                    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    ultimo_envio DATETIME,
+                    id SERIAL PRIMARY KEY,
+                    nombre VARCHAR(255) NOT NULL,
+                    telefono VARCHAR(50) NOT NULL UNIQUE,
+                    email VARCHAR(255),
+                    activo BOOLEAN DEFAULT true,
+                    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    ultimo_envio TIMESTAMP,
                     total_enviados INTEGER DEFAULT 0
                 )
             ''')
@@ -135,32 +156,31 @@ class SpamBotService:
             # Crear tabla de envíos
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS envios (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    cliente_id INTEGER,
-                    template_usado TEXT,
+                    id SERIAL PRIMARY KEY,
+                    cliente_id INTEGER REFERENCES clientes(id),
+                    template_usado VARCHAR(100),
                     mensaje TEXT,
                     parametros TEXT,
-                    estado TEXT, -- 'enviado', 'fallido', 'pendiente'
-                    fecha_envio DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    estado VARCHAR(20),
+                    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     respuesta_twilio TEXT,
-                    message_sid TEXT,
-                    FOREIGN KEY (cliente_id) REFERENCES clientes (id)
+                    message_sid VARCHAR(100)
                 )
             ''')
             
             # Crear tabla de campañas
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS campañas (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nombre TEXT NOT NULL,
-                    template_usado TEXT NOT NULL,
+                    id SERIAL PRIMARY KEY,
+                    nombre VARCHAR(255) NOT NULL,
+                    template_usado VARCHAR(100) NOT NULL,
                     descripcion TEXT,
-                    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    fecha_ejecucion DATETIME,
+                    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    fecha_ejecucion TIMESTAMP,
                     total_enviados INTEGER DEFAULT 0,
                     total_exitosos INTEGER DEFAULT 0,
                     total_fallidos INTEGER DEFAULT 0,
-                    estado TEXT DEFAULT 'pendiente'
+                    estado VARCHAR(20) DEFAULT 'pendiente'
                 )
             ''')
             
@@ -170,7 +190,7 @@ class SpamBotService:
             # Cargar datos de ejemplo si está vacía
             self._load_sample_data()
             
-            logger.info("✅ Base de datos inicializada correctamente")
+            logger.info("✅ Base de datos PostgreSQL inicializada correctamente")
             
         except Exception as e:
             logger.error(f"❌ Error inicializando base de datos: {e}")
@@ -178,12 +198,17 @@ class SpamBotService:
     def _load_sample_data(self):
         """Carga datos de ejemplo si la base está vacía"""
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = self._get_connection()
+            if not conn:
+                return
+                
             cursor = conn.cursor()
             
             # Verificar si hay clientes
             cursor.execute("SELECT COUNT(*) FROM clientes")
-            if cursor.fetchone()[0] == 0:
+            count = cursor.fetchone()[0]
+            
+            if count == 0:
                 # Insertar clientes de ejemplo
                 clientes_ejemplo = [
                     ("Juan Pérez", "+51999123456", "juan@email.com"),
@@ -193,10 +218,11 @@ class SpamBotService:
                     ("Pedro Sánchez", "+51999567890", "pedro@email.com")
                 ]
                 
-                cursor.executemany(
-                    "INSERT INTO clientes (nombre, telefono, email) VALUES (?, ?, ?)",
-                    clientes_ejemplo
-                )
+                for nombre, telefono, email in clientes_ejemplo:
+                    cursor.execute(
+                        "INSERT INTO clientes (nombre, telefono, email) VALUES (%s, %s, %s)",
+                        (nombre, telefono, email)
+                    )
                 
                 logger.info("✅ Clientes de ejemplo insertados")
             
@@ -209,11 +235,14 @@ class SpamBotService:
     def agregar_cliente(self, nombre: str, telefono: str, email: Optional[str] = None) -> bool:
         """Agrega un nuevo cliente a la base de datos"""
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = self._get_connection()
+            if not conn:
+                return False
+                
             cursor = conn.cursor()
             
             cursor.execute(
-                "INSERT INTO clientes (nombre, telefono, email) VALUES (?, ?, ?)",
+                "INSERT INTO clientes (nombre, telefono, email) VALUES (%s, %s, %s)",
                 (nombre, telefono, email)
             )
             
@@ -223,7 +252,7 @@ class SpamBotService:
             logger.info(f"✅ Cliente agregado: {nombre} - {telefono}")
             return True
             
-        except sqlite3.IntegrityError:
+        except psycopg2.IntegrityError:
             logger.warning(f"⚠️ Cliente ya existe: {telefono}")
             return False
         except Exception as e:
@@ -234,25 +263,22 @@ class SpamBotService:
         """Obtiene lista de clientes activos"""
         clientes = []
         try:
-            conn = sqlite3.connect(self.db_path)
-            cursor = conn.cursor()
+            conn = self._get_connection()
+            if not conn:
+                return clientes
+                
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
             
             cursor.execute("""
                 SELECT id, nombre, telefono, email, total_enviados, ultimo_envio
                 FROM clientes 
-                WHERE activo = 1
+                WHERE activo = true
                 ORDER BY nombre
             """)
             
-            for row in cursor.fetchall():
-                clientes.append({
-                    'id': row[0],
-                    'nombre': row[1],
-                    'telefono': row[2],
-                    'email': row[3],
-                    'total_enviados': row[4],
-                    'ultimo_envio': row[5]
-                })
+            rows = cursor.fetchall()
+            for row in rows:
+                clientes.append(dict(row))
             
             conn.close()
             logger.info(f"✅ {len(clientes)} clientes activos encontrados")
@@ -430,16 +456,22 @@ class SpamBotService:
         }
     
     def _proceso_envio_masivo(self, clientes: List[Dict], template_key: str, parametros_custom: Optional[List[str]], delay_min: int, delay_max: int, campaña_id: int):
-        """Proceso de envío masivo en hilo separado"""
+        """Proceso de envío masivo en hilo separado con PostgreSQL"""
         try:
-            conn = sqlite3.connect(self.db_path)
-            cursor = conn.cursor()
-            
             for cliente in clientes:
                 if not self.is_sending:  # Permite cancelar el envío
                     break
                 
+                # Crear una nueva conexión para cada cliente para evitar locks
+                conn = self._get_connection()
+                if not conn:
+                    logger.error("❌ No se pudo conectar a PostgreSQL")
+                    self.stats['fallidos'] += 1
+                    continue
+                
                 try:
+                    cursor = conn.cursor()
+                    
                     # Enviar mensaje
                     exito, respuesta = self.enviar_mensaje_template_sandbox(cliente, template_key, parametros_custom)
                     
@@ -449,7 +481,7 @@ class SpamBotService:
                     
                     cursor.execute("""
                         INSERT INTO envios (cliente_id, template_usado, parametros, estado, respuesta_twilio, message_sid)
-                        VALUES (?, ?, ?, ?, ?, ?)
+                        VALUES (%s, %s, %s, %s, %s, %s)
                     """, (
                         cliente['id'],
                         template_key,
@@ -464,7 +496,7 @@ class SpamBotService:
                         cursor.execute("""
                             UPDATE clientes 
                             SET ultimo_envio = CURRENT_TIMESTAMP, total_enviados = total_enviados + 1
-                            WHERE id = ?
+                            WHERE id = %s
                         """, (cliente['id'],))
                         self.stats['enviados'] += 1
                     else:
@@ -480,11 +512,11 @@ class SpamBotService:
                 except Exception as e:
                     logger.error(f"❌ Error procesando cliente {cliente['nombre']}: {e}")
                     self.stats['fallidos'] += 1
+                finally:
+                    conn.close()
             
             # Actualizar estadísticas de campaña
             self._actualizar_estadisticas_campaña(campaña_id, self.stats['enviados'], self.stats['fallidos'])
-            
-            conn.close()
             
         except Exception as e:
             logger.error(f"❌ Error en proceso de envío masivo: {e}")
@@ -497,14 +529,18 @@ class SpamBotService:
     def _registrar_campaña(self, template_key: str, total_clientes: int) -> int:
         """Registra una nueva campaña en la base de datos"""
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = self._get_connection()
+            if not conn:
+                return 0
+                
             cursor = conn.cursor()
             
             template_info = self.sandbox_templates[template_key]
             
             cursor.execute("""
                 INSERT INTO campañas (nombre, template_usado, descripcion, fecha_ejecucion, total_enviados, estado)
-                VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, 'en_progreso')
+                VALUES (%s, %s, %s, CURRENT_TIMESTAMP, %s, 'en_progreso')
+                RETURNING id
             """, (
                 template_info['nombre'],
                 template_key,
@@ -512,7 +548,7 @@ class SpamBotService:
                 total_clientes
             ))
             
-            campaña_id = cursor.lastrowid or 0
+            campaña_id = cursor.fetchone()[0]
             conn.commit()
             conn.close()
             
@@ -525,13 +561,16 @@ class SpamBotService:
     def _actualizar_estadisticas_campaña(self, campaña_id: int, exitosos: int, fallidos: int):
         """Actualiza las estadísticas de una campaña"""
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = self._get_connection()
+            if not conn:
+                return
+                
             cursor = conn.cursor()
             
             cursor.execute("""
                 UPDATE campañas 
-                SET total_exitosos = ?, total_fallidos = ?, estado = 'completada'
-                WHERE id = ?
+                SET total_exitosos = %s, total_fallidos = %s, estado = 'completada'
+                WHERE id = %s
             """, (exitosos, fallidos, campaña_id))
             
             conn.commit()
@@ -569,8 +608,11 @@ class SpamBotService:
         """Obtiene historial de envíos recientes"""
         historial = []
         try:
-            conn = sqlite3.connect(self.db_path)
-            cursor = conn.cursor()
+            conn = self._get_connection()
+            if not conn:
+                return historial
+                
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
             
             cursor.execute("""
                 SELECT e.id, c.nombre, c.telefono, e.template_usado, 
@@ -578,20 +620,12 @@ class SpamBotService:
                 FROM envios e
                 JOIN clientes c ON e.cliente_id = c.id
                 ORDER BY e.fecha_envio DESC
-                LIMIT ?
+                LIMIT %s
             """, (limite,))
             
-            for row in cursor.fetchall():
-                historial.append({
-                    'id': row[0],
-                    'cliente': row[1],
-                    'telefono': row[2],
-                    'template': row[3],
-                    'estado': row[4],
-                    'fecha': row[5],
-                    'parametros': row[6],
-                    'mensaje': row[7] if len(row) > 7 else 'Mensaje no disponible'
-                })
+            rows = cursor.fetchall()
+            for row in rows:
+                historial.append(dict(row))
             
             conn.close()
             
@@ -624,7 +658,8 @@ class SpamBotService:
                 'message': 'Conexión exitosa con Twilio',
                 'account_name': account.friendly_name,
                 'account_sid': account.sid,
-                'status': account.status
+                'status': account.status,
+                'whatsapp_number': self.whatsapp_number
             }
             
         except Exception as e:
@@ -633,5 +668,5 @@ class SpamBotService:
                 'message': f'Error de conexión: {str(e)}'
             }
 
-# Instancia global del servicio
-spam_service = SpamBotService()
+# Instancia global del servicio PostgreSQL
+spam_service = SpamBotServicePG() 

@@ -1,4 +1,29 @@
+# 🚀 CONFIGURACIÓN TWILIO SANDBOX
+# Obtén estas credenciales desde: https://console.twilio.com/
+
+# Credenciales principales de Twilio
 TWILIO_ACCOUNT_SID=ACa04b8f9a85c8c2668b35343b45ed080e
 TWILIO_AUTH_TOKEN=921ceec8e8869000aebe9bec97f4b106
+
+# Número de WhatsApp del Sandbox de Twilio 
+# Formato: whatsapp:+14155238886 (número fijo del sandbox)
 TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
-GEMINI_API_KEY=AIzaSyCr0XAgMVGoEC2KdOmsHWGwufI6qk9gvFY 
+GEMINI_API_KEY=AIzaSyCr0XAgMVGoEC2KdOmsHWGwufI6qk9gvFY
+
+# URL del webhook (se actualiza automáticamente con ngrok)
+WEBHOOK_URL=http://localhost:5000/whatsapp/webhook
+
+# Configuración del servidor
+FLASK_PORT=5000
+FLASK_DEBUG=True
+
+# Base de datos PostgreSQL
+DATABASE_URL=postgresql://alesse_user:alesse_secure_pass_2024@localhost:5432/bot
+
+# 📝 INSTRUCCIONES:
+# 1. Ve a WhatsApp Sandbox: https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn
+# 2. Únete al sandbox enviando "join [tu-keyword]" al +1 415 523 8886
+# 3. Ejecuta: python install_ngrok.py
+# 4. Ejecuta: python run_spam_bot.py
+# 5. En otra terminal: ./ngrok.exe http 5000
+# 6. Copia la URL de ngrok al campo "When a message comes in" en Twilio Console 

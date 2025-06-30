@@ -7,7 +7,7 @@ Sistema de gestión completo para envío de templates
 from flask import Flask, request, jsonify, render_template_string
 from flask_cors import CORS
 import json
-from spam_bot_service import spam_service
+from spam_bot_service_pg import spam_service
 
 app = Flask(__name__)
 CORS(app)
@@ -713,7 +713,7 @@ HTML_TEMPLATE = """
             if (templates.success) {
                 select.innerHTML = '<option value="">-- Selecciona un template --</option>' +
                     templates.data.map(template => 
-                        `<option value="${template.nombre}">${template.nombre}</option>`
+                        `<option value="${template.id}">${template.nombre}</option>`
                     ).join('');
             }
         }
@@ -922,32 +922,28 @@ def handle_clients():
 
 @app.route('/api/templates', methods=['GET', 'POST'])
 def handle_templates():
-    """Gestionar templates"""
-    try:
-        if request.method == 'GET':
+    """Maneja solicitudes de templates"""
+    
+    if request.method == 'GET':
+        # Obtener templates disponibles del sandbox
+        try:
             templates = spam_service.obtener_templates_disponibles()
             return jsonify({
                 'success': True,
                 'data': templates
             })
-        
-        elif request.method == 'POST':
-            data = request.get_json()
-            success = spam_service.crear_template(
-                nombre=data['nombre'],
-                contenido=data['contenido']
-            )
-            
+        except Exception as e:
             return jsonify({
-                'success': success,
-                'message': 'Template creado' if success else 'Error creando template'
-            })
-            
-    except Exception as e:
+                'success': False,
+                'message': f'Error obteniendo templates: {str(e)}'
+            }), 500
+    
+    elif request.method == 'POST':
+        # Los templates del sandbox no se pueden crear dinámicamente
         return jsonify({
             'success': False,
-            'error': str(e)
-        })
+            'message': 'Los templates del sandbox están predefinidos y no se pueden crear nuevos'
+        }), 400
 
 @app.route('/api/history', methods=['GET'])
 def get_history():
@@ -967,13 +963,26 @@ def get_history():
 
 @app.route('/api/send-spam', methods=['POST'])
 def send_spam():
-    """Iniciar envío masivo"""
+    """Inicia envío masivo"""
     try:
         data = request.get_json()
-        result = spam_service.enviar_spam_masivo(
-            template_nombre=data['template'],
-            delay_min=int(data.get('delay_min', 5)),
-            delay_max=int(data.get('delay_max', 15))
+        template_key = data.get('template')
+        delay_min = int(data.get('delay_min', 5))
+        delay_max = int(data.get('delay_max', 15))
+        parametros_custom = data.get('parametros_custom')  # Parámetros personalizados opcionales
+        
+        if not template_key:
+            return jsonify({
+                'success': False,
+                'message': 'Template requerido'
+            }), 400
+        
+        # Iniciar envío masivo con template del sandbox
+        result = spam_service.enviar_campaña_masiva(
+            template_key=template_key,
+            parametros_custom=parametros_custom,
+            delay_min=delay_min,
+            delay_max=delay_max
         )
         
         return jsonify(result)
@@ -981,8 +990,8 @@ def send_spam():
     except Exception as e:
         return jsonify({
             'success': False,
-            'message': str(e)
-        })
+            'message': f'Error iniciando envío: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     print("🌐 Iniciando servidor web del Bot de Spam...")
