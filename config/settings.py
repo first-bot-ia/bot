@@ -51,6 +51,7 @@ class WebConfig:
     """Configuración del servidor web"""
     port: int
     debug: bool
+    api_gateway_url: str  # NUEVO para microservicio
     webhook_url: Optional[str] = None
     
     @classmethod
@@ -58,11 +59,13 @@ class WebConfig:
         """Crea configuración desde variables de entorno"""
         port = int(os.getenv('FLASK_PORT', '5000'))
         debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
+        api_gateway_url = os.getenv('API_GATEWAY_URL', 'http://localhost:8080')
         webhook_url = os.getenv('WEBHOOK_URL')
         
         return cls(
             port=port,
             debug=debug,
+            api_gateway_url=api_gateway_url,
             webhook_url=webhook_url
         )
 

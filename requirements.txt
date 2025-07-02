@@ -1,25 +1,17 @@
-# Dependencias principales del Bot de Spam WhatsApp
-# Implementación con Domain-Driven Design (DDD)
+# Dependencias del WhatsApp Microservice
+# Especializado en Twilio Operations
 
-# Web Framework
+# Web Framework (microservicio)
 Flask==2.3.3
-Flask-CORS==4.0.0
 
-# WhatsApp/SMS
+# WhatsApp/SMS especializado
 twilio==8.9.1
 
-# Base de datos
+# Base de datos (solo para templates lookup)
 psycopg2-binary==2.9.7
-
-# Túneles ngrok
-pyngrok==7.0.0
 
 # Configuración
 python-dotenv==1.0.0
 
-# Logging y utilidades
-requests==2.31.0
-
-# Desarrollo y testing (opcional)
-pytest==7.4.2
-pytest-cov==4.1.0 
+# HTTP requests (para API Gateway communication)
+requests==2.31.0 

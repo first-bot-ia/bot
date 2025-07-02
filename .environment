@@ -15,10 +15,14 @@ WEBHOOK_URL=http://localhost:5000/whatsapp/webhook
 
 # Configuración del servidor
 FLASK_PORT=5000
-FLASK_DEBUG=True
+FLASK_DEBUG=False
 
-# Base de datos PostgreSQL
-DATABASE_URL=postgresql://postgres:root@localhost:5432/bot
+# API Gateway URL (para comunicación entre plataformas)
+API_GATEWAY_URL=http://localhost:8080
+
+# Base de datos PostgreSQL (usando pgAdmin)
+# Configuración: alesse_connect, localhost:5432, user: postgres, password: root
+DATABASE_URL=postgresql://postgres:root@localhost:5432/alesse_connect
 
 # 📝 INSTRUCCIONES:
 # 1. Ve a WhatsApp Sandbox: https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn

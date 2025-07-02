@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Punto de entrada principal de la aplicación Bot de Spam WhatsApp
-Implementación con Domain-Driven Design (DDD)
+WhatsApp Microservice - Especializado en Twilio Operations
+Arquitectura de Microservicio Puro
 """
 import os
 import sys
@@ -22,40 +22,42 @@ logging.basicConfig(
 )
 
 def main():
-    """Función principal de la aplicación"""
+    """Función principal del microservicio"""
     try:
         from config.settings import AppConfig
         
         # Cargar configuración
         config = AppConfig.from_env()
         
-        print("🚀 Iniciando Bot de Spam WhatsApp con DDD")
+        print("🚀 Iniciando WhatsApp Microservice")
         print("=" * 50)
         print(f"📱 Twilio: {config.twilio.whatsapp_number}")
-        print(f"🗄️ Base de datos: PostgreSQL")
-        print(f"🌐 Puerto web: {config.web.port}")
-        print(f"🔧 Debug: {config.web.debug}")
+        print(f"🌐 Puerto: {config.web.port}")
+        print(f"🔗 API Gateway: {config.web.api_gateway_url}")
+        print(f"🤖 Modo: Microservicio Especializado")
         print("=" * 50)
         
-        # Inicializar arquitectura DDD
+        # Inicializar solo servicios esenciales
         from infrastructure.web.api_controller import WhatsAppBotAPI
         
-        print("🏗️ Inicializando arquitectura DDD...")
+        print("🏗️ Inicializando microservicio especializado...")
         
-        # Configurar datos iniciales si es necesario
-        from setup_initial_data import setup_initial_data
-        setup_initial_data()
-        
-        # Crear controlador principal con dependencias inyectadas
+        # Crear controlador principal
         api_controller = WhatsAppBotAPI(config)
         
-        print("✅ Iniciando servidor web con DDD...")
+        print("✅ WhatsApp Microservice iniciado...")
+        print("🎯 Especializaciones activas:")
+        print("   • Envío directo via Twilio")
+        print("   • Webhook adapter para API Gateway")
+        print("   • Campañas masivas optimizadas")
+        print("   • Health checks especializados")
+        print("-" * 50)
         
-        # Ejecutar servidor
+        # Ejecutar microservicio
         api_controller.run()
         
     except Exception as e:
-        print(f"❌ Error iniciando aplicación: {e}")
+        print(f"❌ Error iniciando microservicio: {e}")
         logging.error(f"Error en main: {e}", exc_info=True)
         sys.exit(1)
 

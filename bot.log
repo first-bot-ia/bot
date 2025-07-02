@@ -285,3 +285,119 @@
 2025-06-30 18:49:23,626 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '533', 'Connection': 'keep-alive', 'Date': 'Mon, 30 Jun 2025 23:49:24 GMT', 'Content-Encoding': 'gzip', 'ETag': '61b6174620e3c1fbd1e025b0a6dc525a--gzip', 'Last-Modified': 'Wed, 25 Jun 2025 22:46:28 +0000', 'Twilio-Concurrent-Requests': '1', 'Twilio-Request-Id': 'RQ305446a12fa9c99941c9fac1030827c7', 'Twilio-Request-Duration': '0.023', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Vary': 'Accept-Encoding, Origin', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'XNNx6rMmfS0AiRsNteYYT4lg40bH_4kLK_z_VJjUtnBK379b2gf1KA==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none'}
 2025-06-30 18:49:23,673 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:49:23] "GET /api/status HTTP/1.1" 200 -
 2025-06-30 18:49:26,313 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 18:49:26] "GET /api/clients HTTP/1.1" 200 -
+2025-07-02 01:26:15,633 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.38:5000
+2025-07-02 01:26:15,633 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 01:26:40,762 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:26:40,762 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:26:40,762 - twilio.http_client - INFO - Headers:
+2025-07-02 01:26:40,762 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:26:40,763 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:26:40,763 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:26:40,763 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:26:40,764 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:26:41,842 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:26:41,842 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:26:42 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQac89a623ba11959ffb44944cfa49a72f', 'Twilio-Request-Duration': '0.019', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'QVR-9kK6EcSmQHNdkb3KWKuH8txwWVg7GCJCf3e1LbqCcOOUB8f5UQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:26:41,844 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:26:41] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:28:04,062 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:28:04,063 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:28:04,063 - twilio.http_client - INFO - Headers:
+2025-07-02 01:28:04,063 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:28:04,063 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:28:04,064 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:28:04,064 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:28:04,064 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:28:04,427 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:28:04,427 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:28:05 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ3a0f3b66b0c17103ccdc205f5fd0ad9a', 'Twilio-Request-Duration': '0.007', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'GfkA5BEOG2-BiUgaS15I_GFYYK3meJE1KuUmumIg4OqttBcKSx4xEQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:28:04,428 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:28:04] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:28:11,609 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:28:11] "[31m[1mGET /whatsapp/webhook HTTP/1.1[0m" 405 -
+2025-07-02 01:28:25,744 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:28:25,744 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:28:25,745 - twilio.http_client - INFO - Headers:
+2025-07-02 01:28:25,745 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:28:25,745 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:28:25,745 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:28:25,746 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:28:25,746 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:28:26,175 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:28:26,176 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:28:26 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQe4e523cf94e85722c887be7c3af11f49', 'Twilio-Request-Duration': '0.006', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'MqOAq0OaAgmgdU-d1B1KDRnNBj9-nMzzgiv6LV6PTYL8-2SmzOBzDQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:28:26,176 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:28:26] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:28:26,263 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:28:26,263 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:28:26,264 - twilio.http_client - INFO - Headers:
+2025-07-02 01:28:26,264 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:28:26,264 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:28:26,265 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:28:26,265 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:28:26,265 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:28:26,696 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:28:26,696 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:28:27 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ2d7fd65dd151aa582f2448cace6f99c5', 'Twilio-Request-Duration': '0.007', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'YpamOyFQ398xTsA_ov62796Z3fewIZ_36AZOw-TPcfvjQZeA7qephg==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:28:26,697 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:28:26] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:30:50,925 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:30:50,925 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:30:50,926 - twilio.http_client - INFO - Headers:
+2025-07-02 01:30:50,927 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:30:50,927 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:30:50,927 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:30:50,928 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:30:50,928 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:30:51,291 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:30:51,291 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:30:52 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQb0bcf07d437c1dfccb68ed2b388d8f4f', 'Twilio-Request-Duration': '0.008', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'doLERCoZsbrdV271owbl9CZLPk4NyKekgf80kfwfiCX7m__ODyLqDQ==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:30:51,292 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:30:51] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:30:51,324 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:30:51,325 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:30:51,325 - twilio.http_client - INFO - Headers:
+2025-07-02 01:30:51,326 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:30:51,326 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:30:51,327 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:30:51,327 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:30:51,327 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:30:51,755 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:30:51,756 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:30:52 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ000a1828ed14601151cf82b374197e93', 'Twilio-Request-Duration': '0.007', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'a5rI_Qj-NbDazBFIM13THInq86AIpJJ_txLyKt4kDlIOVhuJBFaurg==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:30:51,757 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:30:51] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:32:39,154 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:32:39,154 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:32:39,154 - twilio.http_client - INFO - Headers:
+2025-07-02 01:32:39,155 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:32:39,155 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:32:39,155 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:32:39,155 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:32:39,156 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:32:39,651 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:32:39,652 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:32:40 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ0d6c949f2e831c35a3e928eecb89e0bb', 'Twilio-Request-Duration': '0.014', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'WGGS81RvD4zaadb5gcBtqwrVpaCxbZh2hBkurFGVvXIz9atltrsOXw==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:32:39,652 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:32:39] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:32:39,772 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:32:39,772 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:32:39,773 - twilio.http_client - INFO - Headers:
+2025-07-02 01:32:39,773 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:32:39,773 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:32:39,774 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:32:39,774 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:32:39,775 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:32:40,203 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:32:40,204 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:32:40 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ7fb3454e292a835e127439a67db02011', 'Twilio-Request-Duration': '0.007', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9dfde75cb555907976b663017043cf04.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': '-EinDblyF_mpOaWDZHqfdT7HyTyiL8lfGUdx9hdcj0YHlXO7bu4pbA==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:32:40,204 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:32:40] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:38:00,474 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:38:00,475 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:38:00,475 - twilio.http_client - INFO - Headers:
+2025-07-02 01:38:00,475 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:38:00,475 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:38:00,475 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:38:00,476 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:38:00,476 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:38:01,243 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:38:01,244 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:38:01 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ9ff4837496f46f4c34ebc22e3d5c1ef9', 'Twilio-Request-Duration': '0.018', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 d57b2a5738f58b3120f0223cecca8c6c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': 'tWf6wLYUK3ltpfzV5ouKsZbLVQWd9S6GGG25fqUS5FiOXV9QX4UMrw==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:38:01,245 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:38:01] "GET /health HTTP/1.1" 200 -
+2025-07-02 01:38:01,310 - twilio.http_client - INFO - -- BEGIN Twilio API Request --
+2025-07-02 01:38:01,310 - twilio.http_client - INFO - GET Request: https://api.twilio.com/2010-04-01/Accounts/ACa04b8f9a85c8c2668b35343b45ed080e.json
+2025-07-02 01:38:01,310 - twilio.http_client - INFO - Headers:
+2025-07-02 01:38:01,311 - twilio.http_client - INFO - User-Agent : twilio-python/8.9.1 (Windows AMD64) Python/3.13.4
+2025-07-02 01:38:01,311 - twilio.http_client - INFO - X-Twilio-Client : python-8.9.1
+2025-07-02 01:38:01,311 - twilio.http_client - INFO - Accept-Charset : utf-8
+2025-07-02 01:38:01,312 - twilio.http_client - INFO - Accept : application/json
+2025-07-02 01:38:01,312 - twilio.http_client - INFO - -- END Twilio API Request --
+2025-07-02 01:38:01,741 - twilio.http_client - INFO - Response Status Code: 401
+2025-07-02 01:38:01,741 - twilio.http_client - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Jul 2025 06:38:02 GMT', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQe08aec62deb1437a2567cf77e3361b0d', 'Twilio-Request-Duration': '0.006', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'WWW-Authenticate': 'Basic realm="Twilio API"', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 d57b2a5738f58b3120f0223cecca8c6c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'LIM50-P2', 'X-Amz-Cf-Id': '75zAuXuHwRTgdgu4im_X3TGPNaTm6W87FLP8p94daDXnYZwPZ4vPNg==', 'X-Powered-By': 'AT-5000', 'X-Shenanigans': 'none', 'Vary': 'Origin'}
+2025-07-02 01:38:01,741 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 01:38:01] "GET /health HTTP/1.1" 200 -

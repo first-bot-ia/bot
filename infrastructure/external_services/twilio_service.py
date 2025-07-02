@@ -121,7 +121,7 @@ class TwilioWhatsAppService:
                 to=client.get_whatsapp_number()
             )
             
-            return True, message.sid or "unknown_sid"
+            return True, str(message.sid) if message.sid else "unknown_sid"
             
         except Exception as e:
             error_msg = str(e)
@@ -159,6 +159,47 @@ class TwilioWhatsAppService:
                 time.sleep(delay_seconds)
         
         return stats
+    
+    def send_message_direct(self, phone: str, message: str, media_url: str = None) -> Tuple[bool, str]:
+        """
+        Envío directo sin entities (para microservicio)
+        
+        Args:
+            phone: Número de teléfono (con código país)
+            message: Contenido del mensaje
+            media_url: URL de archivo multimedia opcional
+            
+        Returns:
+            Tuple[bool, str]: (éxito, message_sid o error)
+        """
+        try:
+            # Validar formato de teléfono
+            if not phone.startswith('+'):
+                phone = f"+{phone}"
+            
+            # Formatear para WhatsApp
+            whatsapp_number = f"whatsapp:{phone}"
+            
+            # Preparar parámetros del mensaje
+            params = {
+                'body': message,
+                'from_': self.config.whatsapp_number,
+                'to': whatsapp_number
+            }
+            
+            # Agregar multimedia si se proporciona
+            if media_url:
+                params['media_url'] = media_url
+                
+            # Enviar mensaje via Twilio
+            message_obj = self.client.messages.create(**params)
+            
+            return True, str(message_obj.sid) if message_obj.sid else "unknown_sid"
+            
+        except Exception as e:
+            error_msg = str(e)
+            print(f"Error enviando mensaje directo a {phone}: {error_msg}")
+            return False, error_msg
     
     def test_connection(self) -> Tuple[bool, str]:
         """Prueba la conexión con Twilio"""

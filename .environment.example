@@ -1,0 +1,24 @@
+# ===================================
+# WHATSAPP MICROSERVICE CONFIGURATION
+# ===================================
+
+# Twilio Configuration (REQUIRED)
+TWILIO_ACCOUNT_SID=your_twilio_account_sid_here
+TWILIO_AUTH_TOKEN=your_twilio_auth_token_here
+TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
+
+# Database Configuration (for templates only)
+DATABASE_URL=postgresql://user:password@localhost:5432/alesse_connect
+
+# Microservice Configuration
+FLASK_PORT=5000
+API_GATEWAY_URL=http://localhost:8080
+
+# Optional (for debugging)
+WEBHOOK_URL=http://localhost:5000/whatsapp/webhook
+
+# ===================================
+# REMOVED VARIABLES (no longer needed)
+# ===================================
+# FLASK_DEBUG=  # Always production mode
+# CORS configuration moved to API Gateway 
