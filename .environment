@@ -1,33 +1,40 @@
-# 🚀 CONFIGURACIÓN TWILIO SANDBOX
-# Obtén estas credenciales desde: https://console.twilio.com/
+# =========================================
+# 📁 BOT/.ENVIRONMENT - CONFIGURACIÓN ESPECÍFICA
+# =========================================
 
-# Credenciales principales de Twilio
+PORT=5000
+HOST=0.0.0.0
+
+# CORS - Permitir API Gateway
+CORS_ORIGIN=http://localhost:8080
+CORS_CREDENTIALS=true
+
+# URLs de servicios que necesita
+API_GATEWAY_URL=http://localhost:8080
+BACKEND_URL=http://localhost:9000
+
+# Seguridad
+API_GATEWAY_SECRET=secret-123-gateway
+
+# Twilio (credenciales reales ya configuradas)
 TWILIO_ACCOUNT_SID=ACa04b8f9a85c8c2668b35343b45ed080e
 TWILIO_AUTH_TOKEN=bcfb91d9e0136991532027f7a215cf35
-
-# Número de WhatsApp del Sandbox de Twilio 
-# Formato: whatsapp:+14155238886 (número fijo del sandbox)
+TWILIO_PHONE_NUMBER=+14155238886
 TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
-GEMINI_API_KEY=AIzaSyCr0XAgMVGoEC2KdOmsHWGwufI6qk9gvFY
 
-# URL del webhook (se actualiza automáticamente con ngrok)
-WEBHOOK_URL=http://localhost:5000/whatsapp/webhook
-
-# Configuración del servidor
-FLASK_PORT=5000
-FLASK_DEBUG=False
-
-# API Gateway URL (para comunicación entre plataformas)
-API_GATEWAY_URL=http://localhost:8080
-
-# Base de datos PostgreSQL (usando pgAdmin)
-# Configuración: alesse_connect, localhost:5432, user: postgres, password: root
+# Base de datos compartida
 DATABASE_URL=postgresql://postgres:root@localhost:5432/alesse_connect
 
-# 📝 INSTRUCCIONES:
-# 1. Ve a WhatsApp Sandbox: https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn
-# 2. Únete al sandbox enviando "join [tu-keyword]" al +1 415 523 8886
-# 3. Ejecuta: python install_ngrok.py
-# 4. Ejecuta: python run_spam_bot.py
-# 5. En otra terminal: ./ngrok.exe http 5000
-# 6. Copia la URL de ngrok al campo "When a message comes in" en Twilio Console 
+# Webhook configurado con ngrok
+WEBHOOK_URL=https://d158-181-177-245-68.ngrok-free.app/whatsapp/webhook
+
+# Configuración adicional necesaria para el bot
+BOT_PORT=5000
+FLASK_DEBUG=false
+DEBUG=true
+LOG_LEVEL=INFO
+
+# WhatsApp Business API (para futuro)
+WHATSAPP_ACCESS_TOKEN=tu_token_aqui
+WHATSAPP_PHONE_NUMBER_ID=tu_phone_id_aqui
+WEBHOOK_VERIFY_TOKEN=secret-123-gateway 

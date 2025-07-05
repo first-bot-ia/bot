@@ -9,6 +9,7 @@ from datetime import datetime
 
 from infrastructure.external_services.twilio_service import TwilioWhatsAppService
 from infrastructure.external_services.api_gateway_client import ApiGatewayClient
+from infrastructure.external_services.backend_client import AlesseBackendClient
 
 logger = logging.getLogger(__name__)
 
@@ -19,9 +20,10 @@ class InternalController:
     Maneja comunicación entrante desde Backend via API Gateway
     """
     
-    def __init__(self, twilio_service: TwilioWhatsAppService, api_gateway_client: ApiGatewayClient):
+    def __init__(self, twilio_service: TwilioWhatsAppService, api_gateway_client: ApiGatewayClient, backend_client: AlesseBackendClient):
         self.twilio_service = twilio_service
         self.api_gateway_client = api_gateway_client
+        self.backend_client = backend_client
         self.blueprint = Blueprint('internal', __name__, url_prefix='/internal')
         self._register_routes()
     
