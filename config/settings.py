@@ -96,12 +96,28 @@ class SecurityConfig:
         )
 
 @dataclass
+class WhatsAppConfig:
+    api_token: str
+    number_id: str
+    verify_token: str
+
+    @classmethod
+    def from_env(cls) -> 'WhatsAppConfig':
+        api_token = os.getenv('WHATSAPP_API_TOKEN')
+        number_id = os.getenv('WHATSAPP_NUMBER_ID')
+        verify_token = os.getenv('WHATSAPP_VERIFY_TOKEN')
+        if not api_token or not number_id or not verify_token:
+            raise ValueError('Faltan variables de entorno para WhatsApp Business API')
+        return cls(api_token=api_token, number_id=number_id, verify_token=verify_token)
+
+@dataclass
 class AppConfig:
     """Configuración principal de la aplicación"""
     database: DatabaseConfig
     twilio: TwilioConfig
     web: WebConfig
     security: SecurityConfig
+    whatsapp: WhatsAppConfig
     
     # Variables adicionales específicas del bot
     cors_origin: str
@@ -117,11 +133,14 @@ class AppConfig:
         log_level = os.getenv('LOG_LEVEL', 'INFO')
         debug = os.getenv('DEBUG', 'true').lower() == 'true'
         
+        whatsapp = WhatsAppConfig.from_env()
+        
         return cls(
             database=DatabaseConfig.from_env(),
             twilio=TwilioConfig.from_env(),
             web=WebConfig.from_env(),
             security=SecurityConfig.from_env(),
+            whatsapp=whatsapp,
             cors_origin=cors_origin,
             cors_credentials=cors_credentials,
             log_level=log_level,

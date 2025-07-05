@@ -3,18 +3,21 @@ Microservicio WhatsApp - Especializado en Twilio Operations
 Adaptador puro sin business logic
 """
 from flask import Flask, request, jsonify
-from typing import Dict, Any
+from typing import Dict, Any, List
 import requests
 import time
 import os
+import logging
 from datetime import datetime
 
 from config.settings import AppConfig
-from infrastructure.external_services.twilio_service import TwilioWhatsAppService
+from infrastructure.external_services.whatsapp_business_api import WhatsAppBusinessAPI
 from infrastructure.external_services.api_gateway_client import ApiGatewayClient
 from infrastructure.external_services.backend_client import AlesseBackendClient
-from infrastructure.web.internal_controller import InternalController
 
+# Configurar logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class WhatsAppBotAPI:
     """
@@ -27,246 +30,321 @@ class WhatsAppBotAPI:
         self.app = Flask(__name__)
         
         # Solo servicios especializados
-        self.twilio_service = TwilioWhatsAppService(config.twilio)
+        self.whatsapp_service = WhatsAppBusinessAPI(
+            api_token=config.whatsapp.api_token,
+            number_id=config.whatsapp.number_id
+        )
         self.api_gateway_client = ApiGatewayClient(config.web.api_gateway_url)
         self.backend_client = AlesseBackendClient(config.web.backend_url)
         
-        # Controlador interno para comunicación con Backend
-        self.internal_controller = InternalController(
-            self.twilio_service, 
-            self.api_gateway_client,
-            self.backend_client
-        )
-        
         # Registrar rutas especializadas
         self._register_routes()
-        
-        # Registrar rutas internas
-        self.app.register_blueprint(self.internal_controller.get_blueprint())
     
     def _register_routes(self):
-        """Registra rutas especializadas del microservicio"""
+        """Registra todas las rutas del bot"""
         
         @self.app.route('/health', methods=['GET'])
         def health_check():
-            """Health check para microservicio"""
+            """Health check del bot"""
             try:
-                # Solo verificar servicios core
-                twilio_ok, twilio_msg = self.twilio_service.test_connection()
-                
                 return jsonify({
-                    'service': 'whatsapp-microservice',
-                    'status': 'healthy' if twilio_ok else 'degraded',
-                    'twilio': {
-                        'status': 'ok' if twilio_ok else 'error',
-                        'message': twilio_msg
-                    },
+                    'service': 'whatsapp-bot',
+                    'status': 'healthy',
                     'timestamp': datetime.now().isoformat()
                 })
             except Exception as e:
+                logger.error(f"Health check failed: {str(e)}")
                 return jsonify({
-                    'service': 'whatsapp-microservice',
+                    'service': 'whatsapp-bot',
                     'status': 'unhealthy',
                     'error': str(e),
                     'timestamp': datetime.now().isoformat()
                 }), 500
         
-        @self.app.route('/whatsapp/webhook', methods=['POST'])
-        def whatsapp_webhook():
-            """Webhook adapter - Forward to API Gateway AND Backend"""
-            try:
-                webhook_data = request.get_json()
-                
-                # Extraer datos del webhook de Twilio
-                phone_raw = webhook_data.get('From', '')
-                phone = phone_raw.replace('whatsapp:', '') if phone_raw else ''
-                message = webhook_data.get('Body', '')
-                message_id = webhook_data.get('MessageSid')
-                
-                if not phone or not message:
-                    return jsonify({'success': False, 'error': 'Phone or message missing'}), 400
-                
-                # 1. Forward al API Gateway (funcionalidad existente)
-                media_url = webhook_data.get('MediaUrl0')
-                success, response_data = self.api_gateway_client.notify_user_response(
-                    phone, message, media_url
-                )
-                
-                # 2. NUEVO: Forward al Backend Node.js
-                backend_response = self.backend_client.send_message_to_backend(
-                    phone=phone,
-                    message=message,
-                    message_id=message_id,
-                    message_type="text"
-                )
-                
-                return jsonify({
-                    'success': True,
-                    'api_gateway_response': response_data,
-                    'backend_response': backend_response
-                }), 200
-                
-            except Exception as e:
-                return jsonify({'success': False, 'error': str(e)}), 500
-        
-        @self.app.route('/execute/campaign', methods=['POST'])
-        def execute_campaign():
-            """Execute campaign - Only Twilio sending"""
-            try:
-                data = request.get_json()
-                
-                # Recibir datos ya procesados del Gateway
-                phone_numbers = data.get('phone_numbers', [])
-                message_content = data.get('message_content', '')
-                media_url = data.get('media_url')
-                delay_seconds = data.get('delay_seconds', 3)
-                
-                if not phone_numbers or not message_content:
-                    return jsonify({
-                        'success': False,
-                        'error': 'phone_numbers and message_content required'
-                    }), 400
-                
-                # Solo ejecutar envío via Twilio (sin business logic)
-                results = self._execute_twilio_bulk_send(
-                    phone_numbers, message_content, media_url, delay_seconds
-                )
-                
-                return jsonify({
-                    'success': True,
-                    'results': results
-                })
-                
-            except Exception as e:
-                return jsonify({'success': False, 'error': str(e)}), 500
-        
         @self.app.route('/send/message', methods=['POST'])
-        def send_single_message():
-            """Send single message - Direct Twilio operation"""
+        def send_message():
+            """Envía un mensaje individual de WhatsApp"""
             try:
                 data = request.get_json()
-                
-                phone = data.get('phone')
-                message = data.get('message')
-                media_url = data.get('media_url')
-                
-                if not phone or not message:
-                    return jsonify({
-                        'success': False,
-                        'error': 'phone and message required'
-                    }), 400
-                
-                # Envío directo via Twilio
-                success, result = self.twilio_service.send_message_direct(
-                    phone, message, media_url
-                )
-                
-                return jsonify({
-                    'success': success,
-                    'message_sid': result if success else None,
-                    'error': result if not success else None
-                })
-                
-            except Exception as e:
-                return jsonify({'success': False, 'error': str(e)}), 500
-        
-        @self.app.route('/send-message-to-user', methods=['POST'])
-        def send_message_to_user():
-            """
-            Endpoint para que el Backend Node.js envíe mensajes a usuarios via WhatsApp
-            Especificación según documentación de integración
-            """
-            try:
-                data = request.get_json()
-                
-                if not data:
-                    return jsonify({
-                        'success': False,
-                        'error': 'JSON data requerido'
-                    }), 400
-                
-                # Validar campos requeridos según documentación
                 phone = data.get('phone')
                 message = data.get('message')
                 
                 if not phone or not message:
+                    return jsonify({"error": "Phone and message required"}), 400
+                
+                # Validar que el mensaje sea solo texto
+                if not isinstance(message, str) or len(message.strip()) == 0:
+                    return jsonify({"error": "Message must be non-empty text"}), 400
+                
+                # Enviar mensaje
+                result = self.whatsapp_service.send_message(phone, message)
+                
+                if result.get('success'):
                     return jsonify({
-                        'success': False,
-                        'error': 'phone y message son requeridos'
-                    }), 400
-                
-                # Campos opcionales
-                conversation_id = data.get('conversationId')
-                advisor_id = data.get('advisorId')
-                
-                # Enviar mensaje via Twilio (ya validamos que no sean None arriba)
-                success, result = self.twilio_service.send_message_direct(
-                    str(phone), str(message)
-                )
-                
-                if success:
-                    return jsonify({
-                        'success': True,
-                        'message': 'Mensaje enviado exitosamente',
-                        'data': {
-                            'phone': phone,
-                            'conversationId': conversation_id,
-                            'whatsappMessageId': result,
-                            'status': 'sent'
-                        }
+                        "success": True,
+                        "message": "Message sent successfully",
+                        "message_id": result.get('message_id')
                     })
                 else:
                     return jsonify({
-                        'success': False,
-                        'error': 'Error enviando mensaje via WhatsApp',
-                        'details': result
+                        "success": False,
+                        "error": result.get('error', 'Unknown error')
                     }), 500
                     
             except Exception as e:
-                return jsonify({
-                    'success': False,
-                    'error': 'Error interno del Bot',
-                    'details': str(e)
-                }), 500
-    
-    def _normalize_twilio_webhook(self, webhook_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Normaliza datos del webhook de Twilio para el API Gateway"""
-        return {
-            'from': webhook_data.get('From'),
-            'body': webhook_data.get('Body'),
-            'timestamp': datetime.now().isoformat(),
-            'twilio_sid': webhook_data.get('MessageSid'),
-            'account_sid': webhook_data.get('AccountSid'),
-            'num_media': webhook_data.get('NumMedia', '0'),
-            'media_url_0': webhook_data.get('MediaUrl0') if webhook_data.get('NumMedia', '0') != '0' else None
-        }
-    
-    def _execute_twilio_bulk_send(self, phone_numbers: list, message_content: str, 
-                                 media_url: str = None, delay_seconds: int = 3) -> Dict[str, int]:
-        """Ejecuta envío masivo solo via Twilio"""
-        results = {'sent': 0, 'failed': 0, 'errors': []}
+                logger.error(f"Error sending message: {str(e)}")
+                return jsonify({"error": str(e)}), 500
         
-        for phone in phone_numbers:
+        @self.app.route('/campaigns/send', methods=['POST'])
+        def send_campaign():
+            """Envía campaña masiva a todos los contactos"""
             try:
-                success, result = self.twilio_service.send_message_direct(
-                    phone, message_content, media_url
-                )
+                data = request.get_json()
+                message = data.get('message')
+                campaign_id = data.get('campaign_id')
                 
-                if success:
-                    results['sent'] += 1
+                if not message or not campaign_id:
+                    return jsonify({"error": "Message and campaign_id required"}), 400
+                
+                # Validar que el mensaje sea solo texto
+                if not isinstance(message, str) or len(message.strip()) == 0:
+                    return jsonify({"error": "Message must be non-empty text"}), 400
+                
+                logger.info(f"Starting campaign {campaign_id} with message: {message[:50]}...")
+                
+                # Obtener contactos del backend
+                contacts_response = self.backend_client.get_campaign_contacts(campaign_id)
+                
+                if not contacts_response.get('success'):
+                    return jsonify({
+                        "success": False,
+                        "error": "Failed to get contacts from backend"
+                    }), 500
+                
+                contacts = contacts_response.get('contacts', [])
+                
+                if not contacts:
+                    return jsonify({
+                        "success": False,
+                        "error": "No contacts found for campaign"
+                    }), 400
+                
+                # Enviar mensajes uno por uno
+                sent_count = 0
+                failed_count = 0
+                failed_contacts = []
+                
+                for contact in contacts:
+                    try:
+                        phone = contact.get('phone')
+                        if not phone:
+                            failed_count += 1
+                            failed_contacts.append({"contact": contact, "error": "No phone number"})
+                            continue
+                        
+                        # Personalizar mensaje con nombre si existe
+                        personalized_message = message
+                        if contact.get('name'):
+                            personalized_message = f"Hola {contact['name']}, {message}"
+                        
+                        # Enviar mensaje
+                        result = self.whatsapp_service.send_message(phone, personalized_message)
+                        
+                        if result.get('success'):
+                            sent_count += 1
+                            logger.info(f"Message sent to {phone}")
+                        else:
+                            failed_count += 1
+                            failed_contacts.append({
+                                "contact": contact,
+                                "error": result.get('error', 'Unknown error')
+                            })
+                            logger.error(f"Failed to send message to {phone}: {result.get('error')}")
+                        
+                        # Delay entre mensajes para evitar rate limiting
+                        time.sleep(1)
+                        
+                    except Exception as e:
+                        failed_count += 1
+                        failed_contacts.append({
+                            "contact": contact,
+                            "error": str(e)
+                        })
+                        logger.error(f"Error sending to contact {contact}: {str(e)}")
+                
+                # Actualizar estado de campaña en backend
+                self.backend_client.update_campaign_status(campaign_id, {
+                    'sent_count': sent_count,
+                    'failed_count': failed_count,
+                    'status': 'completed' if failed_count == 0 else 'completed_with_errors'
+                })
+                
+                return jsonify({
+                    "success": True,
+                    "campaign_id": campaign_id,
+                    "total_contacts": len(contacts),
+                    "sent_count": sent_count,
+                    "failed_count": failed_count,
+                    "failed_contacts": failed_contacts[:5]  # Solo primeros 5 errores
+                })
+                
+            except Exception as e:
+                logger.error(f"Error in campaign: {str(e)}")
+                return jsonify({"error": str(e)}), 500
+        
+        @self.app.route('/campaigns/<campaign_id>/status', methods=['GET'])
+        def get_campaign_status(campaign_id):
+            """Obtiene el estado de una campaña"""
+            try:
+                # Obtener estado del backend
+                status_response = self.backend_client.get_campaign_status(campaign_id)
+                
+                if status_response.get('success'):
+                    return jsonify(status_response)
                 else:
-                    results['failed'] += 1
-                    results['errors'].append(f"{phone}: {result}")
+                    return jsonify({
+                        "success": False,
+                        "error": "Campaign not found"
+                    }), 404
                     
             except Exception as e:
-                results['failed'] += 1
-                results['errors'].append(f"{phone}: {str(e)}")
-            
-            # Delay entre envíos
-            if delay_seconds > 0:
-                time.sleep(delay_seconds)
+                logger.error(f"Error getting campaign status: {str(e)}")
+                return jsonify({"error": str(e)}), 500
         
-        return results
+        @self.app.route('/webhook/whatsapp', methods=['GET', 'POST'])
+        def whatsapp_webhook():
+            """Webhook para recibir mensajes de WhatsApp"""
+            try:
+                if request.method == 'GET':
+                    # Verificación del webhook
+                    mode = request.args.get('hub.mode')
+                    token = request.args.get('hub.verify_token')
+                    challenge = request.args.get('hub.challenge')
+                    
+                    logger.info(f"Webhook verification attempt - mode: {mode}, token: {token}, expected: {self.config.whatsapp.verify_token}")
+                    
+                    if mode == 'subscribe' and token == self.config.whatsapp.verify_token:
+                        logger.info("Webhook verified successfully")
+                        return str(challenge) if challenge else "", 200
+                    else:
+                        logger.warning(f"Webhook verification failed - mode: {mode}, token: {token}")
+                        return 'Verification failed', 403
+                
+                elif request.method == 'POST':
+                    # Procesar mensaje entrante
+                    data = request.get_json()
+                    
+                    if not data:
+                        return jsonify({"error": "No data received"}), 400
+                    
+                    # Parsear webhook usando WhatsApp Business API
+                    parsed_data = self.whatsapp_service.parse_webhook(data)
+                    
+                    if not parsed_data:
+                        logger.info("No processable message in webhook")
+                        return jsonify({"status": "no_message"}), 200
+                    
+                    # Extraer información del mensaje
+                    from_number = parsed_data.get('from')
+                    message_text = parsed_data.get('message')
+                    message_id = parsed_data.get('message_id')
+                    timestamp = parsed_data.get('timestamp')
+                    
+                    if not from_number or not message_text:
+                        logger.warning("Invalid message data received")
+                        return jsonify({"status": "invalid_data"}), 200
+                    
+                    logger.info(f"Received message from {from_number}: {message_text[:50]}...")
+                    
+                    # Crear conversación en el backend
+                    conversation_data = {
+                        'contactPhone': from_number,
+                        'initialMessage': message_text,
+                        'source': 'whatsapp',
+                        'timestamp': timestamp or datetime.now().isoformat(),
+                        'messageId': message_id
+                    }
+                    
+                    # Crear o actualizar conversación
+                    conversation_response = self.backend_client.create_conversation(conversation_data)
+                    
+                    if conversation_response.get('success'):
+                        logger.info(f"Conversation created/updated for {from_number}")
+                    else:
+                        logger.error(f"Failed to create conversation: {conversation_response.get('error')}")
+                    
+                    return jsonify({"status": "processed"}), 200
+                    
+            except Exception as e:
+                logger.error(f"Error in webhook: {str(e)}")
+                return jsonify({"error": str(e)}), 500
+        
+        @self.app.route('/conversations/<conversation_id>/reply', methods=['POST'])
+        def reply_to_conversation(conversation_id):
+            """Envía respuesta a una conversación específica"""
+            try:
+                data = request.get_json()
+                message = data.get('message')
+                
+                if not message:
+                    return jsonify({"error": "Message required"}), 400
+                
+                # Validar que el mensaje sea solo texto
+                if not isinstance(message, str) or len(message.strip()) == 0:
+                    return jsonify({"error": "Message must be non-empty text"}), 400
+                
+                logger.info(f"Replying to conversation {conversation_id}: {message[:50]}...")
+                
+                # Obtener datos de la conversación del backend
+                conversation_response = self.backend_client.get_conversation_details(conversation_id)
+                
+                if not conversation_response.get('success'):
+                    return jsonify({
+                        "success": False,
+                        "error": "Conversation not found"
+                    }), 404
+                
+                conversation = conversation_response.get('conversation')
+                contact_phone = conversation.get('contactPhone')
+                
+                if not contact_phone:
+                    return jsonify({
+                        "success": False,
+                        "error": "Contact phone not found in conversation"
+                    }), 400
+                
+                # Enviar mensaje a WhatsApp
+                result = self.whatsapp_service.send_message(contact_phone, message)
+                
+                if result.get('success'):
+                    # Guardar mensaje en el backend
+                    message_data = {
+                        'conversationId': conversation_id,
+                        'content': message,
+                        'direction': 'outbound',
+                        'timestamp': datetime.now().isoformat(),
+                        'messageId': result.get('message_id')
+                    }
+                    
+                    self.backend_client.save_message(message_data)
+                    
+                    logger.info(f"Reply sent successfully to {contact_phone}")
+                    
+                    return jsonify({
+                        "success": True,
+                        "message": "Reply sent successfully",
+                        "message_id": result.get('message_id'),
+                        "conversation_id": conversation_id
+                    })
+                else:
+                    return jsonify({
+                        "success": False,
+                        "error": result.get('error', 'Failed to send message')
+                    }), 500
+                    
+            except Exception as e:
+                logger.error(f"Error replying to conversation: {str(e)}")
+                return jsonify({"error": str(e)}), 500
     
     def run(self):
         """Ejecuta el microservicio"""

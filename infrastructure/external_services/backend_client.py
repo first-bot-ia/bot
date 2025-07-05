@@ -133,4 +133,216 @@ class AlesseBackendClient:
             else:
                 return {"success": False, "error": f"HTTP {response.status_code}"}
         except Exception as e:
-            return {"success": False, "error": str(e)} 
+            return {"success": False, "error": str(e)}
+
+    def get_campaign_contacts(self, campaign_id: str) -> Dict[str, Any]:
+        """
+        Obtiene contactos para una campaña específica
+        
+        Args:
+            campaign_id: ID de la campaña
+        
+        Returns:
+            dict: Respuesta con contactos
+        """
+        try:
+            response = requests.get(
+                f"{self.backend_url}/internal/campaigns/{campaign_id}/contacts",
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                return {
+                    'success': True,
+                    'contacts': response.json().get('contacts', [])
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def update_campaign_status(self, campaign_id: str, status_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Actualiza el estado de una campaña
+        
+        Args:
+            campaign_id: ID de la campaña
+            status_data: Datos de estado (sent_count, failed_count, status)
+        
+        Returns:
+            dict: Respuesta de actualización
+        """
+        try:
+            response = requests.put(
+                f"{self.backend_url}/internal/campaigns/{campaign_id}/status",
+                json=status_data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                return {
+                    'success': True,
+                    'data': response.json()
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def get_campaign_status(self, campaign_id: str) -> Dict[str, Any]:
+        """
+        Obtiene el estado actual de una campaña
+        
+        Args:
+            campaign_id: ID de la campaña
+        
+        Returns:
+            dict: Estado de la campaña
+        """
+        try:
+            response = requests.get(
+                f"{self.backend_url}/internal/campaigns/{campaign_id}/status",
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                return {
+                    'success': True,
+                    'data': response.json()
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def create_conversation(self, conversation_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Crea una nueva conversación en el backend
+        
+        Args:
+            conversation_data: Datos de la conversación
+                - contactPhone: Número de teléfono
+                - initialMessage: Mensaje inicial
+                - source: Fuente del mensaje (whatsapp, etc.)
+                - timestamp: Timestamp del mensaje
+                - messageId: ID del mensaje (opcional)
+        
+        Returns:
+            dict: Respuesta de creación
+        """
+        try:
+            response = requests.post(
+                f"{self.backend_url}/internal/conversations/create",
+                json=conversation_data,
+                timeout=30
+            )
+            
+            if response.status_code in [200, 201]:
+                return {
+                    'success': True,
+                    'conversation': response.json()
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def get_conversation_details(self, conversation_id: str) -> Dict[str, Any]:
+        """
+        Obtiene detalles de una conversación específica
+        
+        Args:
+            conversation_id: ID de la conversación
+        
+        Returns:
+            dict: Detalles de la conversación
+        """
+        try:
+            response = requests.get(
+                f"{self.backend_url}/api/conversations/{conversation_id}",
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                conversation_data = response.json()
+                return {
+                    'success': True,
+                    'conversation': {
+                        'id': conversation_data.get('data', {}).get('id'),
+                        'contactPhone': conversation_data.get('data', {}).get('contact', {}).get('phoneNumber'),
+                        'status': conversation_data.get('data', {}).get('status'),
+                        'whatsappChatId': conversation_data.get('data', {}).get('whatsappChatId')
+                    }
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def save_message(self, message_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Guarda un mensaje en el backend
+        
+        Args:
+            message_data: Datos del mensaje
+                - conversationId: ID de la conversación
+                - content: Contenido del mensaje
+                - direction: inbound/outbound
+                - timestamp: Timestamp del mensaje
+                - messageId: ID del mensaje de WhatsApp (opcional)
+        
+        Returns:
+            dict: Respuesta de guardado
+        """
+        try:
+            response = requests.post(
+                f"{self.backend_url}/api/messages",
+                json=message_data,
+                timeout=30
+            )
+            
+            if response.status_code in [200, 201]:
+                return {
+                    'success': True,
+                    'message': response.json()
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            } 
